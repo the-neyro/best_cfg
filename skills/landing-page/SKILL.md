@@ -1,7 +1,7 @@
 ---
 name: landing-page
 description: Plan, write and build high-converting marketing websites and landing pages that look premium - structure, copy, sections, SEO and performance. Use when creating or redesigning a landing page, marketing site, product page, portfolio or pricing page. Works together with the design skill for visual design.
-when_to_use: "landing", "website", "marketing site", "home page", "pricing page", "portfolio", "лендинг", "сайт"
+when_to_use: 'Triggers: landing, website, marketing site, home page, pricing page, portfolio, лендинг, сайт'
 ---
 
 # Landing page

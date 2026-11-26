@@ -1,6 +1,6 @@
 ---
 name: code-reviewer
-description: Independent reviewer for a diff or a set of changed files. Use after implementing a feature or fix and before committing or opening a PR, or when the user asks for a review. Finds correctness bugs, missed edge cases, security issues and spec gaps; does not edit code.
+description: Independent reviewer for a diff or a set of changed files. Use proactively after implementing a feature or fix and before committing or opening a PR, or when the user asks for a review. Finds correctness bugs, missed edge cases, security issues and spec gaps; does not edit code.
 tools: Read, Grep, Glob, Bash
 model: opus
 effort: high

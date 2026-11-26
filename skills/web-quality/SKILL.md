@@ -1,7 +1,7 @@
 ---
 name: web-quality
 description: Audit and fix web performance (Core Web Vitals), accessibility (WCAG 2.2 AA), SEO and best practices for a website or web app using Lighthouse, axe and code inspection. Use before launch, after big UI changes, or when the user mentions speed, Lighthouse, PageSpeed, SEO or accessibility.
-when_to_use: "lighthouse", "pagespeed", "slow site", "performance", "core web vitals", "SEO", "accessibility", "a11y", "before launch"
+when_to_use: 'Triggers: lighthouse, pagespeed, slow site, performance, core web vitals, SEO, accessibility, a11y, before launch'
 ---
 
 # Web quality audit

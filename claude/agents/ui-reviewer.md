@@ -4,6 +4,8 @@ description: Ruthless visual design critic for web UI - pages, dashboards, compo
 tools: Read, Grep, Glob, Bash
 model: opus
 effort: high
+skills:
+  - design
 color: pink
 ---
 

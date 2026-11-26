@@ -1,7 +1,7 @@
 ---
 name: tdd
 description: Test-driven development loop (red -> green -> refactor) for implementing features and fixing bugs with high confidence. Use for business logic, algorithms, parsers, API handlers, data transformations and any bug fix, or when the user asks for TDD or "write tests first".
-when_to_use: "implement", "add logic", "fix bug", "write tests first", "TDD", "edge cases"
+when_to_use: 'Triggers: implement, add logic, fix bug, write tests first, TDD, edge cases'
 ---
 
 # TDD

@@ -4,6 +4,8 @@ description: Writes and runs tests for existing or new code - unit, integration 
 tools: Read, Grep, Glob, Bash, Edit, Write
 model: sonnet
 effort: high
+skills:
+  - tdd
 color: green
 ---
 

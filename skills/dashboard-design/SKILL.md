@@ -1,7 +1,7 @@
 ---
 name: dashboard-design
 description: Design and build data dashboards, admin panels, analytics and SaaS app screens that feel like a premium product (Linear / Stripe / Vercel quality) - KPI tiles, charts, tables, filters, dense-but-calm layouts. Use for any dashboard, analytics page, admin UI, data table or chart work.
-when_to_use: "dashboard", "admin panel", "analytics", "KPI", "metrics", "charts", "data table", "CRM", "back office", "SaaS app"
+when_to_use: 'Triggers: dashboard, admin panel, analytics, KPI, metrics, charts, data table, CRM, back office, SaaS app'
 ---
 
 # Dashboard design

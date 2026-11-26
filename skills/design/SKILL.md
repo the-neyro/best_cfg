@@ -1,7 +1,7 @@
 ---
 name: design
 description: Design and build distinctive, premium web and app interfaces that never look like generic AI output - no default cards, borders, rounded corners, shadows or icon tiles. Use for ANY design or UI request - pages, apps, components, landing pages, dashboards, design systems, restyling - in any language ("дизайн", "Design", "UI", "сайт", "Webseite", "Oberfläche").
-when_to_use: "design", "дизайн", "Gestaltung", "UI", "UX", "interface", "интерфейс", "Oberfläche", "make it look good", "premium", "redesign", "landing", "лендинг", "website", "сайт", "Webseite", "dashboard", "дашборд", "component", "looks generic"
+when_to_use: 'Triggers: design, дизайн, Gestaltung, UI, UX, interface, интерфейс, Oberfläche, make it look good, premium, redesign, landing, лендинг, website, сайт, Webseite, dashboard, дашборд, component, looks generic'
 ---
 
 # Design without AI slop
@@ -44,6 +44,8 @@ Create tokens before components (CSS variables / Tailwind v4 `@theme`): colors, 
 - Images with fixed aspect ratios and no layout shift.
 
 ### 5. Check, deterministically and visually
+Code quality and interaction details: follow the `frontend-engineering` skill (performance, forms, focus, URL state, typography details).
+
 1. Run the slop scanner on the changed UI code and fix every finding:
    `node <this skill's folder>/scripts/slop-scan.mjs src` (path to the UI source; Claude Code install: `~/.claude/skills/design/scripts/slop-scan.mjs`).
 2. Render and screenshot with the `visual-qa` skill (375 / 768 / 1440, light + dark). Look at every screenshot and ask: "Would a designer at a top studio ship this? Does anything look like a template?" Fix and re-shoot.

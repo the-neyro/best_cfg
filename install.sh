@@ -75,6 +75,7 @@ merge_settings() { # merge our settings.json into an existing one (lists unioned
     | .permissions.deny  = (((($old.permissions.deny)  // []) + (($new.permissions.deny)  // [])) | unique)
     | .hooks = (reduce ((($old.hooks // {}) | keys) + (($new.hooks // {}) | keys) | unique)[] as $ev
         ({}; .[$ev] = ((($old.hooks[$ev]) // []) + (($new.hooks[$ev]) // []) | unique_by(tojson))))
+    | .hooks |= with_entries(.value |= map(select((tojson | test("design-trigger\\.sh")) | not)))
   ' "$dst" "$ours")"
   if [ -n "$merged" ]; then
     if printf '%s\n' "$merged" | cmp -s - "$dst"; then return 0; fi
@@ -113,6 +114,10 @@ if [ "$ALL" -eq 1 ] || has claude || [ -d "$HOME/.claude" ]; then
   install_dir_items "$REPO/claude/agents" "$HOME/.claude/agents"
   install_dir_items "$REPO/claude/hooks" "$HOME/.claude/hooks"
   install_dir_items "$REPO/skills" "$HOME/.claude/skills"
+  # Remove hooks from earlier versions of this config.
+  for legacy in design-trigger.sh; do
+    [ -e "$HOME/.claude/hooks/$legacy" ] && { backup "$HOME/.claude/hooks/$legacy"; run rm -f "$HOME/.claude/hooks/$legacy"; }
+  done
   run chmod +x "$HOME/.claude/hooks/"*.sh
   merge_settings "$REPO/claude/settings.json" "$HOME/.claude/settings.json"
 else

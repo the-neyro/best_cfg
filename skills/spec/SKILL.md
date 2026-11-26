@@ -17,7 +17,10 @@ Read the relevant parts of the codebase: existing patterns, data models, routes,
 ## 2. Interview
 Ask the user only the questions whose answers change the implementation, in one batch, each with your recommended default so they can just confirm. Typical areas: users and permissions, data and edge cases, UX states, integrations, performance/scale, what is explicitly out of scope. Skip questions the code already answers.
 
-## 3. Write the spec
+## 3. Approaches
+Before writing, lay out 2-3 approaches with trade-offs (effort, risk, UX, cost) and a recommendation. Let the user pick or confirm.
+
+## 4. Write the spec
 Create `docs/specs/<feature-slug>.md` (or the location the project uses):
 
 ```markdown
@@ -38,5 +41,8 @@ Tests to add, commands to run, manual/visual checks.
 1. Small, independently verifiable steps in order.
 ```
 
-## 4. Confirm and build
+## 5. Builder check
+Give the spec to a fresh reviewer (a subagent that has not seen this conversation) and ask: "What would you need to ask before building this?" Answer what the spec should answer, fix ambiguities, and only escalate the questions that truly belong to the user.
+
+## 6. Confirm and build
 Show a short summary of the spec and ask for approval (or use plan mode). Then implement step by step, checking off requirements, running the verification for each step. At the end, have the `code-reviewer` subagent review the diff against the spec and fix real gaps.

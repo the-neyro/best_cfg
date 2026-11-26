@@ -1,7 +1,7 @@
 ---
 name: secure-coding
 description: Build and review features with security by default - authentication, authorization, sessions, input validation, APIs, file uploads, payments, secrets, security headers, dependencies, LLM features and GDPR/DSGVO. Use whenever code handles users, data, money, files, external input or credentials, and before any release.
-when_to_use: "auth", "login", "signup", "password", "session", "API", "upload", "payment", "Stripe", "webhook", "admin", "roles", "security", "безопасность", "Sicherheit", "DSGVO", "GDPR", "before release"
+when_to_use: 'Triggers: auth, login, signup, password, session, API, upload, payment, Stripe, webhook, admin, roles, security, безопасность, Sicherheit, DSGVO, GDPR, before release'
 ---
 
 # Secure coding
@@ -30,6 +30,18 @@ Detailed checklists with code patterns: `references/checklists.md`.
 - **Dependencies & supply chain**: few, maintained, popular packages; check exact names (typosquatting); lockfile committed; `npm ci`; audit in CI; pin GitHub Actions to commit SHAs; no `curl | sh` installs.
 - **LLM features**: treat model output as untrusted input (validate, escape, never execute directly); defend against prompt injection from retrieved content; tool calls behind allowlists, scopes and human confirmation for destructive actions; no secrets or other users' data in prompts.
 - **Privacy (GDPR/DSGVO)**: data minimization, purpose limitation, consent for non-essential cookies/tracking, export and deletion flows, data processing agreements with vendors, EU data residency where possible. German-market sites need an Impressum and a Datenschutzerklärung.
+
+## Review methodology (finds what OWASP checklists miss)
+Inspired by Trail of Bits' audit skills (CC-BY-SA-4.0), paraphrased.
+- **Three adversaries** for every config and API: the *Scoundrel* (can configuration turn security off?), the *Lazy Developer* (is the first copy-pasted usage secure?), the *Confused Developer* (can two same-typed arguments be swapped silently?).
+- **Edge values**: for every limit, timeout, TTL, length or key parameter ask what `0`, `""`, `null`, `[]`, `-1` do (e.g. `ttl = 0` meaning "never expires", empty allowlist meaning "allow all").
+- **Fail-open defaults**: read the default, not the variable name - `REQUIRE_AUTH = env("REQUIRE_AUTH", "false")` is a finding; `env["SECRET"]` that crashes when unset is safe. Find the project's own config accessor first, then grep its fallback form (`getSetting("X", default)`, `ENV.fetch`, `${VAR:-default}`, Dockerfile `ENV`).
+- **Silent failures**: verifiers returning `false` instead of throwing and callers ignoring it, empty `catch` around security calls, `if (!key) return true`, unchecked return values.
+- **Unconsulted switches**: a security flag that is read but never checked at the enforcement point is not a control.
+- **Stringly-typed security**: permissions as comma-joined strings, algorithm names from input (`"none"`), URLs/SQL built by concatenation.
+- **Verify every finding** before reporting: reachable in production, insecure value actually used, reaches a security decision (name the sink), not overridable by deployment config. An incomplete trace is not a finding.
+- **Dependencies**: check advisories (OSV, `npm audit`) against the lockfile-resolved version, not the manifest range; check install scripts (`npm ci --ignore-scripts` viable?); unknown data = unassessed, never "clean".
+- Use POSIX classes in grep (`[[:space:]]`, `[0-9]`): `\s`, `\d`, `\b` silently match nothing in some grep builds, and zero hits look clean.
 
 ## Never
 - Roll your own crypto, JWT parsing or password hashing.

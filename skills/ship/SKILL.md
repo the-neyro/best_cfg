@@ -28,10 +28,13 @@ Fix failures caused by this change. If a failure is pre-existing and unrelated, 
 - Fix Critical and Important findings that are real; explain any you reject.
 - Re-run the checks affected by fixes.
 
-## 4. Commit
+## 4. Verification gate
+Apply the `verification` skill: every claim in the report backed by a command run in this turn.
+
+## 5. Commit
 - Stage only the intended files (by name, not `git add -A` blindly).
 - Commit message in German: imperative subject <= 72 chars, blank line, body with what and why if non-trivial. Follow the repo's convention (e.g. Conventional Commits prefixes) if it has one.
 - Do not push unless the user asks.
 
-## 5. Report
+## 6. Report
 Checks run with results, review findings fixed/declined, the commit hash and message.

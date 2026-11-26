@@ -34,8 +34,10 @@ Bedienung: `/effort high`, `/model fable`, und `ultrathink` im Prompt für einen
 ## Subagents dieser Konfig
 | Agent | Modell | Grund |
 |---|---|---|
+| architect, debugger | opus, xhigh | Planung und Ursachensuche sind die denkintensivsten Aufgaben |
+| implementer | opus, high | Baut ein Arbeitspaket, oft mehrere parallel in Worktrees |
 | code-reviewer, security-auditor, ui-reviewer | opus, high | Hier spart man nicht – verpasste Bugs und Lücken kosten mehr |
-| debugger | opus, xhigh | Ursachensuche ist die denkintensivste Aufgabe |
+| editor, fact-checker | opus, high | Texte und Zahlen müssen stimmen und menschlich klingen |
 | test-writer | sonnet, high | Tests nach Vorlage kann Sonnet sehr gut |
 | researcher | sonnet, medium | Doku suchen und zusammenfassen |
 

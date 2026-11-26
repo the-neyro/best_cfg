@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# UserPromptSubmit hook: detects the topic of a prompt (Russian / German / English)
+# and injects which skills and rules must be applied - so the right skill loads
+# every time, deterministically. Never blocks.
+
+input="$(cat)"
+
+prompt=""
+if command -v jq >/dev/null 2>&1; then
+  prompt="$(printf '%s' "$input" | jq -r '.prompt // empty' 2>/dev/null)"
+elif command -v python3 >/dev/null 2>&1; then
+  prompt="$(printf '%s' "$input" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("prompt",""))' 2>/dev/null)"
+fi
+[ -z "$prompt" ] && exit 0
+
+if command -v python3 >/dev/null 2>&1; then
+  lower="$(printf '%s' "$prompt" | python3 -c 'import sys; print(sys.stdin.read().lower())')"
+else
+  lower="$(printf '%s' "$prompt" | tr '[:upper:]' '[:lower:]')"
+fi
+
+# Regex match; Python handles Cyrillic word boundaries correctly, grep is the fallback.
+if command -v python3 >/dev/null 2>&1; then
+  has() { printf '%s' "$lower" | python3 -c 'import re,sys; sys.exit(0 if re.search(sys.argv[1], sys.stdin.read()) else 1)' "$1"; }
+else
+  has() { printf '%s' "$lower" | grep -Eq "$1"; }
+fi
+ctx=""
+add() { ctx="${ctx}${ctx:+ }$1"; }
+
+if has 'design|дизайн|редизайн|(^|[^a-z])u[ix]([^a-z]|$)|interface|интерфейс|oberfläche|gestalt|layout|вёрст|верст|лендинг|landing|startseite|(сделай|создай|сверстай|переделай|build|create|make|erstell|bau|gestalte).{0,40}(сайт|website|webseite|homepage|seite|app|приложени)|dashboard|дашборд|дэшборд|frontend|фронтенд|component|компонент|komponente|tailwind|(^|[^a-z])css|макет|mockup|figma|экран|bildschirm|красив|schön|premium|премиум'; then
+  add "[design] Load and follow the \`design\` skill (plus \`dashboard-design\` / \`landing-page\` if relevant). Hard bans unless explicitly requested: no content boxed in bordered cards, radius 0-4px, no decorative shadows or borders, no icons in colored tiles, no decorative icons/emoji, no purple/blue gradients, gradient text or glassmorphism, no template layouts, no unstyled shadcn/library defaults. Show the design plan first; finish with slop-scan, visual-qa screenshots and ui-reviewer."
+fi
+if has 'react|next\.?js|(^|[^a-z])vue|svelte|frontend|фронтенд|component|компонент|komponente|(^|[^a-z])form([^a-z]|$)|форм[аыу]|formular|hydration|re-?render|bundle|playwright'; then
+  add "[frontend-engineering] Apply the \`frontend-engineering\` skill: no waterfalls (Promise.all), small client bundles (Server Components, dynamic imports), no derived state in effects, interface details (forms, focus-visible, URL state, typography, reduced motion)."
+fi
+if has '(^|[^a-z])bug|баг|ошибк|не работает|сломал|fehler|funktioniert nicht|kaputt|crash|exception|stack ?trace|failing|падает|flaky|regression'; then
+  add "[debugging] Use the \`debugging\` skill: reproduce, find the root cause before any fix, one hypothesis at a time, failing test first; after 3 failed fixes stop and rethink. Delegate to \`debugger\` if the cause is not obvious."
+fi
+if has '(^|[^a-z])(erp|crm)([^a-z]|$)|склад|lager|warenwirtschaft|инвойс|rechnung|счёт-фактур|бухгалтер|buchhaltung|faktur|aufträge|заказ|back.?office|admin.?panel|админк|internal tool|b2b|kundenverwaltung|учёт|учет|warehouse|inventory|invoice|datev|xrechnung|zugferd'; then
+  add "[business-apps] Load the \`business-apps\` skill (and \`orchestrate\` for a full system): model the domain first, money as integers/decimal, immutable numbered documents, audit log, RBAC, multi-tenant isolation, GoBD/DATEV/XRechnung for Germany, power-user UX. Start with \`architect\` and a spec."
+fi
+if has '(^|[^a-z])(seo|geo|aeo|llmo)([^a-z]|$)|сео|гео|ранжир|ranking|sichtbarkeit|suchmaschin|search engine|поисков|ai overview|perplexity|chatgpt (findet|finds|находит)|keyword|ключев(ые|ых) слов|schema\.org|sitemap|indexier|индексац'; then
+  add "[seo-geo] Load the \`seo-geo\` skill: audit first, technical foundation (SSR content, robots incl. AI retrieval bots, sitemap, schema, hreflang), answer-first specific content, entity consistency, measurement of AI citations."
+fi
+if has 'отчёт|отчет|репорт|report|bericht|auswertung|сводк|summary|zusammenfassung|memo|präsentation|презентац|analyse|аналитик'; then
+  add "[reports] Load the \`reports\` skill: bottom line first, every number computed with code and traced to a source, human conversational-professional style. Finish with \`editor\` and \`fact-checker\` (or the \`human-writing\` + \`fact-check\` skills)."
+fi
+if has 'текст|напиши|перепиши|очелов|статья|статью|статьи|пост(а|ы)?([^a-z]|$)|письм|e-?mail|schreib|umschreib|artikel|beitrag|copy|humani[sz]e|рассылк|newsletter|beschreibung|описани'; then
+  add "[writing] Load the \`human-writing\` skill: point first, concrete, varied rhythm, native typography, no AI tells or filler. Verify facts with \`fact-check\` for anything published or sent."
+fi
+if has 'автоматиз|automati|n8n|zapier|(^|[^a-z])make\.com|webhook|вебхук|интеграц|integration|cron|(^|[^а-яёa-z])бот([^а-яё]|$)|(^|[^a-z])bot([^a-z]|$)|parser|парсер|scraper|скрапер|(^|[^a-z])etl|(^|[^a-z])sync|синхрон|workflow'; then
+  add "[automation] Load the \`automation\` skill: idempotent, retries with backoff, checkpoints, dry-run first, schema validation, alerting, secrets in a vault, GDPR-compliant processors."
+fi
+if has 'auth|login|логин|passwor|парол|session|сесси|token|токен|oauth|security|безопасн|sicherheit|uploads?|загрузк|payment|оплат|zahlung|stripe|webhook|admin|роль|rolle|permission|доступ|dsgvo|gdpr'; then
+  add "[security] Apply the \`secure-coding\` skill and run \`security-auditor\` before finishing."
+fi
+
+[ -z "$ctx" ] && exit 0
+
+if command -v jq >/dev/null 2>&1; then
+  jq -nc --arg c "Skill router: $ctx" '{hookSpecificOutput:{hookEventName:"UserPromptSubmit",additionalContext:$c}}'
+else
+  python3 -c 'import json,sys; print(json.dumps({"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"Skill router: "+sys.argv[1]}}))' "$ctx"
+fi
+exit 0

@@ -7,11 +7,27 @@ Universal: read by Claude Code, Codex, Cursor, Gemini CLI, Copilot and other age
 - Code: identifiers (variables, functions, classes, files, routes, database columns, API fields) in English. Everything human-readable in the code is in **German**: comments, docstrings, commit messages, README and docs, log messages, and error messages shown to users.
 - User-facing UI text follows the product's target market; default German, always through i18n when the product has more than one language. Use correct umlauts (ä, ö, ü, ß), never ae/oe/ue substitutes.
 
+## Understanding requests
+The user often dictates by voice: long, unstructured, mixed Russian/German, with slang. Extract the actual intent:
+- Restate the task in 1-3 lines (what, for whom, done when) before large work, then proceed with sensible defaults. Ask only questions whose answer changes the result, max 3, each with your recommended default.
+- "The best" / "perfect" / "like a 1,000,000 € product" means: production quality, secure, tested, premium design, real content - not more features.
+- Requests that come in several messages belong together; keep the whole picture.
+
+## Skills (load the matching one before starting)
+`design` (any UI), `frontend-engineering` (React/Next code quality and performance), `dashboard-design`, `landing-page`, `visual-qa`, `debugging` (any bug), `verification` (before every "done"), `secure-coding`, `business-apps` (ERP/CRM/back office), `seo-geo`, `automation`, `reports`, `human-writing`, `fact-check`, `tdd`, `orchestrate`, `web-quality`, `spec`, `ship`.
+
 ## How to work
 - Read before you write: open the files you will change and the code that calls them. Match the repo's existing style, libraries and patterns.
 - For anything bigger than a small fix, state a short plan first (files, approach, verification). For ambiguous requirements, ask one focused question with your recommended default.
 - Make the smallest change that fully solves the task. No drive-by refactors, no speculative abstractions, no new dependency without saying why it is needed and that it is maintained.
 - When a library or API version matters, check current docs (Context7 MCP or the web) instead of relying on memory.
+
+## Zero-error protocol
+Zero errors is the target; verification is how to get there, not confidence.
+1. Before building: list the requirements you are going to satisfy (including implicit ones: security, responsiveness, i18n, edge cases).
+2. While building: verify each step (run it, test it, render it) before the next.
+3. Before reporting: check the result against every requirement in your list, one by one; re-read your diff as a hostile reviewer; for texts, re-verify every fact and number.
+4. Never present guesses as facts. If something is uncertain, unverified or impossible, say so explicitly.
 
 ## Definition of done
 - Done means verified. Run the typecheck, lint, tests and build that cover the change and read the output. If something cannot be run, say so explicitly.

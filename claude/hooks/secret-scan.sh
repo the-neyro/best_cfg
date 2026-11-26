@@ -41,6 +41,28 @@ if printf '%s' "$cmd" | grep -Eq 'commit[^;&|]*[[:space:]](-[a-zA-Z]*a[a-zA-Z]*|
   diff="$diff"$'\n'"$(git diff -U0 --no-color 2>/dev/null)"
 fi
 
+# `git add ... && git commit` in one command: the hook runs before `git add`,
+# so also scan what that `git add` is about to stage.
+addargs="$(printf '%s' "$cmd" | grep -Eo 'git([[:space:]]+-C[[:space:]]+[^[:space:]]+)?[[:space:]]+add[[:space:]]+[^;&|]*' | sed -E 's/^git([[:space:]]+-C[[:space:]]+[^[:space:]]+)?[[:space:]]+add[[:space:]]+//')"
+if [ -n "$addargs" ]; then
+  if printf ' %s ' "$addargs" | grep -Eq '[[:space:]](-A|--all|\.|-u|--update)[[:space:]]'; then
+    cand="$(git diff --name-only 2>/dev/null; git ls-files --others --exclude-standard 2>/dev/null)"
+  else
+    cand="$(for a in $addargs; do case "$a" in -*) ;; *) if [ -d "$a" ]; then git ls-files --others --exclude-standard -- "$a"; git diff --name-only -- "$a"; else printf '%s\n' "$a"; fi ;; esac; done 2>/dev/null)"
+  fi
+  while IFS= read -r f; do
+    [ -n "$f" ] || continue
+    files="$files"$'\n'"$f"
+    if git ls-files --error-unmatch -- "$f" >/dev/null 2>&1; then
+      diff="$diff"$'\n'"$(git diff -U0 --no-color -- "$f" 2>/dev/null)"
+    elif [ -f "$f" ] && [ "$(wc -c < "$f")" -lt 2000000 ]; then
+      diff="$diff"$'\n'"$(sed 's/^/+/' "$f" 2>/dev/null)"
+    fi
+  done <<EOF_CAND
+$cand
+EOF_CAND
+fi
+
 # 1. Secret files.
 bad_file="$(printf '%s\n' "$files" | grep -E '(^|/)(\.env(\.[A-Za-z0-9_-]+)?|id_rsa|id_ed25519|id_ecdsa|[^/]*\.pem|[^/]*\.key|[^/]*\.p12|[^/]*\.pfx|credentials\.json|service-account[^/]*\.json)$' \
   | grep -Ev '\.env\.(example|sample|template|dist)$' | head -n 3)"
