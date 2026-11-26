@@ -15,27 +15,39 @@ Voraussetzungen: `bash`, `jq`, `python3`, `node` (Windows: WSL oder Git Bash). D
 
 ## Inhalt
 ```
-core/AGENTS.md          Globale Regeln für ALLE Agenten: Sprache, Sicherheit, Design, Qualität, Ton
+core/AGENTS.md          Globale Regeln für ALLE Agenten: Anfragen verstehen (auch diktiert), Zero-Error-Protokoll,
+                        Sprache, Security by Default, Anti-AI-Slop-Design, Qualität, Ton
 skills/                 Agent Skills (offener Standard) – laufen in Claude Code, Codex, Cursor, Gemini
   design/               Anti-AI-Slop-Design: harte Verbote, 8 Design-Richtungen, Tokens, slop-scan.mjs
   dashboard-design/     Dashboards, KPIs, Charts, Tabellen
   landing-page/         Struktur, Copy, SEO, Performance, Impressum/DSGVO
   visual-qa/            Screenshots 375/768/1440 hell+dunkel, Konsolenfehler, Overflow (shoot.mjs)
+  business-apps/        ERP/CRM/Backoffice: Domänenmodell, Geld, Belege, Audit, RBAC, GoBD, DATEV, XRechnung
   secure-coding/        Security by Default: Auth, AuthZ, Uploads, Webhooks, Header, Supply Chain, LLM, DSGVO
+  seo-geo/              SEO + GEO (Zitate in ChatGPT, Perplexity, AI Overviews), Audit-Checkliste
+  automation/           n8n/Make/Zapier/Code: idempotent, Retries, Dry-Run, Alerting
+  reports/              Berichte: Kernaussage zuerst, jede Zahl per Code geprüft, menschlicher Ton
+  human-writing/        Texte ohne AI-Floskeln (DE/RU/EN), Liste der AI-Tells
+  fact-check/           Jede Zahl, jedes Datum, jede Behauptung verifizieren
+  orchestrate/          Multi-Agent-Arbeit: Aufwand skalieren, Briefing-Vorlage, Parallelisierung, Verifikation
   tdd/ spec/ ship/ web-quality/
 claude/                 Nur Claude Code
-  CLAUDE.md             importiert AGENTS.md + Claude-spezifische Hinweise
+  CLAUDE.md             importiert AGENTS.md + Orchestrator-Regeln
   settings.json         Opus 5.5 + effort high, Permissions, Hooks, Statuszeile
-  hooks/                guard-bash, secret-scan, protect-files, format-on-edit, design-trigger, statusline
-  agents/               code-reviewer, security-auditor, ui-reviewer, debugger, test-writer, researcher
+  hooks/                skill-router, guard-bash, secret-scan, protect-files, format-on-edit, statusline
+  agents/               architect, implementer, test-writer, debugger, code-reviewer, security-auditor,
+                        ui-reviewer, researcher, editor, fact-checker
 project-template/       AGENTS.md-Vorlage, CLAUDE.md, Stop-Hook (Typecheck+Lint), Frontend-Regeln, .mcp.json
 docs/                   Modelle, Arbeitsweise, MCP, andere Tools
 ```
 
+## Multi-Agent-Setup
+Die Hauptsession ist der **Orchestrator**: kleine Aufgaben selbst, große als Plan (`architect`) → parallele Umsetzung (`implementer` in isolierten Worktrees) → parallele Reviews (`code-reviewer`, `security-auditor`, `ui-reviewer`) → Verifikation. Jede Delegation bekommt ein Briefing mit Ziel, Kontext, Scope, Done-Kriterien und Ausgabeformat. Texte laufen durch `editor` + `fact-checker`. Details: `skills/orchestrate/SKILL.md`.
+
 ## Was automatisch passiert (Claude Code)
 | Hook | Wirkung |
 |---|---|
-| design-trigger | Prompt enthält „Design“, „дизайн“, „UI“, „Webseite“ … → `design`-Skill mit Anti-Slop-Verboten wird erzwungen |
+| skill-router | Erkennt das Thema (RU/DE/EN) und erzwingt den passenden Skill: Design, ERP/CRM, SEO/GEO, Berichte, Texte, Automatisierung, Security |
 | guard-bash | Blockt `rm -rf /`, `curl … \| sh`, Force-Push auf main, `.env` lesen, `chmod 777`; fragt bei `reset --hard`, `--no-verify`, `DROP TABLE`, `publish`, `terraform apply` |
 | secret-scan | Blockt Commits mit API-Keys, privaten Schlüsseln, DB-Passwörtern, `.env`-Dateien (+ gitleaks, falls installiert) |
 | protect-files | Keine Edits an `.env`, Lockfiles, Schlüsseln, `.git/` |

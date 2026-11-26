@@ -1,7 +1,7 @@
 ---
 name: design
 description: Design and build distinctive, premium web and app interfaces that never look like generic AI output - no default cards, borders, rounded corners, shadows or icon tiles. Use for ANY design or UI request - pages, apps, components, landing pages, dashboards, design systems, restyling - in any language ("дизайн", "Design", "UI", "сайт", "Webseite", "Oberfläche").
-when_to_use: "design", "дизайн", "Gestaltung", "UI", "UX", "interface", "интерфейс", "Oberfläche", "make it look good", "premium", "redesign", "landing", "лендинг", "website", "сайт", "Webseite", "dashboard", "дашборд", "component", "looks generic"
+when_to_use: 'Triggers: design, дизайн, Gestaltung, UI, UX, interface, интерфейс, Oberfläche, make it look good, premium, redesign, landing, лендинг, website, сайт, Webseite, dashboard, дашборд, component, looks generic'
 ---
 
 # Design without AI slop

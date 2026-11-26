@@ -1,7 +1,7 @@
 ---
 name: secure-coding
 description: Build and review features with security by default - authentication, authorization, sessions, input validation, APIs, file uploads, payments, secrets, security headers, dependencies, LLM features and GDPR/DSGVO. Use whenever code handles users, data, money, files, external input or credentials, and before any release.
-when_to_use: "auth", "login", "signup", "password", "session", "API", "upload", "payment", "Stripe", "webhook", "admin", "roles", "security", "безопасность", "Sicherheit", "DSGVO", "GDPR", "before release"
+when_to_use: 'Triggers: auth, login, signup, password, session, API, upload, payment, Stripe, webhook, admin, roles, security, безопасность, Sicherheit, DSGVO, GDPR, before release'
 ---
 
 # Secure coding

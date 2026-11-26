@@ -1,9 +1,11 @@
 ---
 name: security-auditor
-description: Security review of code, configuration and dependencies. Use before releasing, when touching authentication, authorization, payments, file uploads, user input handling or secrets, or when the user asks for a security check. Read-only; reports findings with severity.
+description: Security review of code, configuration and dependencies. Use proactively before releasing, when touching authentication, authorization, payments, file uploads, user input handling or secrets, or when the user asks for a security check. Read-only; reports findings with severity.
 tools: Read, Grep, Glob, Bash
 model: opus
 effort: high
+skills:
+  - secure-coding
 color: orange
 ---
 

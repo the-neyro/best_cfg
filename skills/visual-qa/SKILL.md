@@ -1,7 +1,7 @@
 ---
 name: visual-qa
 description: Render a web page or app in a real browser, screenshot it at mobile/tablet/desktop widths in light and dark mode, collect console errors, failed requests and horizontal overflow, then review the screenshots and fix what is wrong. Use after any UI change before saying it is done, or when the user asks to check how something looks.
-when_to_use: "check the UI", "screenshot", "how does it look", "visual bug", "responsive", "mobile view", after building or editing pages and components
+when_to_use: 'Triggers: check the UI, screenshot, how does it look, visual bug, responsive, mobile view, after building or editing pages and components'
 allowed-tools: Bash(node *), Read
 ---
 
