@@ -1,0 +1,52 @@
+# best_cfg – AI-Coding-Konfiguration
+
+Eine schlanke, harte Konfiguration für Claude Code, Codex, Cursor, Gemini CLI & Co. Ziel: sicherer Code, wenige Fehler und Design, das nie nach generischem AI-Output aussieht.
+
+Grundidee (aus Anthropics offiziellen Best Practices): **kurze Regeln, harte Garantien über Hooks, Wissen in Skills, die nur bei Bedarf laden.** Mehr Text ≠ bessere Ergebnisse.
+
+## Installation
+```bash
+git clone <dieses-repo> ~/best_cfg && cd ~/best_cfg
+./install.sh --dry-run      # zeigt, was passieren würde
+./install.sh                # installiert für alle erkannten Tools (Backup unter ~/.ai-config-backup/)
+./install.sh --project ~/code/meine-app   # Projektvorlage (überschreibt nichts)
+```
+Voraussetzungen: `bash`, `jq`, `python3`, `node` (Windows: WSL oder Git Bash). Danach in Claude Code: `/hooks`, `/agents`, `/context` prüfen, MCP-Server aus [docs/mcp.md](docs/mcp.md) hinzufügen.
+
+## Inhalt
+```
+core/AGENTS.md          Globale Regeln für ALLE Agenten: Sprache, Sicherheit, Design, Qualität, Ton
+skills/                 Agent Skills (offener Standard) – laufen in Claude Code, Codex, Cursor, Gemini
+  design/               Anti-AI-Slop-Design: harte Verbote, 8 Design-Richtungen, Tokens, slop-scan.mjs
+  dashboard-design/     Dashboards, KPIs, Charts, Tabellen
+  landing-page/         Struktur, Copy, SEO, Performance, Impressum/DSGVO
+  visual-qa/            Screenshots 375/768/1440 hell+dunkel, Konsolenfehler, Overflow (shoot.mjs)
+  secure-coding/        Security by Default: Auth, AuthZ, Uploads, Webhooks, Header, Supply Chain, LLM, DSGVO
+  tdd/ spec/ ship/ web-quality/
+claude/                 Nur Claude Code
+  CLAUDE.md             importiert AGENTS.md + Claude-spezifische Hinweise
+  settings.json         Opus 5.5 + effort high, Permissions, Hooks, Statuszeile
+  hooks/                guard-bash, secret-scan, protect-files, format-on-edit, design-trigger, statusline
+  agents/               code-reviewer, security-auditor, ui-reviewer, debugger, test-writer, researcher
+project-template/       AGENTS.md-Vorlage, CLAUDE.md, Stop-Hook (Typecheck+Lint), Frontend-Regeln, .mcp.json
+docs/                   Modelle, Arbeitsweise, MCP, andere Tools
+```
+
+## Was automatisch passiert (Claude Code)
+| Hook | Wirkung |
+|---|---|
+| design-trigger | Prompt enthält „Design“, „дизайн“, „UI“, „Webseite“ … → `design`-Skill mit Anti-Slop-Verboten wird erzwungen |
+| guard-bash | Blockt `rm -rf /`, `curl … \| sh`, Force-Push auf main, `.env` lesen, `chmod 777`; fragt bei `reset --hard`, `--no-verify`, `DROP TABLE`, `publish`, `terraform apply` |
+| secret-scan | Blockt Commits mit API-Keys, privaten Schlüsseln, DB-Passwörtern, `.env`-Dateien (+ gitleaks, falls installiert) |
+| protect-files | Keine Edits an `.env`, Lockfiles, Schlüsseln, `.git/` |
+| format-on-edit | Formatiert mit dem Formatter des Projekts (Biome/Prettier/Ruff/gofmt/rustfmt) |
+| verify-on-stop (Projekt) | Typecheck + Lint, bevor Claude „fertig“ sagt |
+
+## Konventionen
+- Antworten in der Sprache des Nutzers (Russisch/Deutsch), kurz, mit Humor.
+- Code: Bezeichner Englisch; Kommentare, Docstrings, Commits, Doku und Fehlermeldungen **Deutsch**. Komplett deutsche Bezeichner? Eine Zeile in `core/AGENTS.md` → Abschnitt „Language“ ändern.
+
+## Anpassen
+- Modell/Effort: `claude/settings.json` → `model`, `modelSettings`. Siehe [docs/models.md](docs/models.md).
+- Eigene Regel, die *immer* gelten muss → Hook, nicht Text. Siehe [docs/workflow.md](docs/workflow.md).
+- Nach Änderungen erneut `./install.sh` (idempotent, mit Backup).
