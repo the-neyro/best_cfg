@@ -54,8 +54,19 @@ OUTPUT: the exact format to return (e.g. "files changed + commands run with resu
 - If two agents disagree, investigate the code yourself instead of picking one.
 - Integrate in small steps; keep the build green between steps.
 
-## 6. Agent teams (optional, experimental)
+## 6. Long runs: ledger and rulings
+- Keep a progress ledger (`docs/plans/<slug>-progress.md`): packages, status, verification evidence. It survives context compaction.
+- When you must decide something the plan did not cover, log it and continue: `Ruling: <decision> - <why> - <cost if wrong>`.
+- Stop and ask the user only for: destructive operations, security-sensitive choices, external side effects (deploy, push, payments, emails to real people), or when every path is a guess.
+
+## 7. Handling review feedback
+- Give reviewers the exact range (`git diff <base_sha>..<head_sha>`), the requirements and what to focus on.
+- For each finding: restate it, verify it against the code, then fix or reject with evidence. No performative agreement.
+- Fix Critical immediately, Important before continuing, note Minor. Cap fix loops at ~3 rounds, then decide and log a ruling.
+- YAGNI check on suggestions that add features or abstractions: grep for real usage first.
+
+## 8. Agent teams (optional, experimental)
 For work where agents must talk to each other (competing hypotheses, cross-layer debugging, adversarial review), Claude Code agent teams can be enabled with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`. Start with 3-5 teammates, each owning its own files. For everything else, subagents are cheaper and simpler.
 
-## 7. Final artifact
-Before reporting done: all phases merged, full test suite + typecheck + lint + build green, reviewers' critical findings fixed, UI checked with `visual-qa`, texts passed through `editor`/`fact-checker` where relevant. Report: what was built, how it was verified (commands + results), known limitations.
+## 9. Final artifact
+Apply the `verification` skill. Before reporting done: all phases merged, full test suite + typecheck + lint + build green, reviewers' critical findings fixed, UI checked with `visual-qa`, texts passed through `editor`/`fact-checker` where relevant. Report: what was built, how it was verified (commands + results), known limitations.

@@ -29,7 +29,10 @@ skills/                 Agent Skills (offener Standard) – laufen in Claude Cod
   reports/              Berichte: Kernaussage zuerst, jede Zahl per Code geprüft, menschlicher Ton
   human-writing/        Texte ohne AI-Floskeln (DE/RU/EN), Liste der AI-Tells
   fact-check/           Jede Zahl, jedes Datum, jede Behauptung verifizieren
-  orchestrate/          Multi-Agent-Arbeit: Aufwand skalieren, Briefing-Vorlage, Parallelisierung, Verifikation
+  orchestrate/          Multi-Agent-Arbeit: Aufwand skalieren, Briefing-Vorlage, Parallelisierung, Ledger, Rulings
+  frontend-engineering/ React/Next-Performance (Waterfalls, Bundle, Re-Renders) + Interface-Details (Formulare, Fokus, URL-State)
+  debugging/            Systematisches Debugging: Ursache zuerst, eine Hypothese, failing Test, Stopp nach 3 Fehlversuchen
+  verification/         Beweis vor Behauptung: Claim -> Evidence-Tabelle
   tdd/ spec/ ship/ web-quality/
 claude/                 Nur Claude Code
   CLAUDE.md             importiert AGENTS.md + Orchestrator-Regeln
@@ -47,7 +50,7 @@ Die Hauptsession ist der **Orchestrator**: kleine Aufgaben selbst, große als Pl
 ## Was automatisch passiert (Claude Code)
 | Hook | Wirkung |
 |---|---|
-| skill-router | Erkennt das Thema (RU/DE/EN) und erzwingt den passenden Skill: Design, ERP/CRM, SEO/GEO, Berichte, Texte, Automatisierung, Security |
+| skill-router | Erkennt das Thema (RU/DE/EN) und erzwingt den passenden Skill: Design, Frontend, Bugs, ERP/CRM, SEO/GEO, Berichte, Texte, Automatisierung, Security |
 | guard-bash | Blockt `rm -rf /`, `curl … \| sh`, Force-Push auf main, `.env` lesen, `chmod 777`; fragt bei `reset --hard`, `--no-verify`, `DROP TABLE`, `publish`, `terraform apply` |
 | secret-scan | Blockt Commits mit API-Keys, privaten Schlüsseln, DB-Passwörtern, `.env`-Dateien (+ gitleaks, falls installiert) |
 | protect-files | Keine Edits an `.env`, Lockfiles, Schlüsseln, `.git/` |
@@ -62,3 +65,6 @@ Die Hauptsession ist der **Orchestrator**: kleine Aufgaben selbst, große als Pl
 - Modell/Effort: `claude/settings.json` → `model`, `modelSettings`. Siehe [docs/models.md](docs/models.md).
 - Eigene Regel, die *immer* gelten muss → Hook, nicht Text. Siehe [docs/workflow.md](docs/workflow.md).
 - Nach Änderungen erneut `./install.sh` (idempotent, mit Backup).
+
+## Credits
+Eigene Texte, inspiriert von und abgeglichen mit: Anthropics offiziellen Claude-Code-Docs und dem `frontend-design`-Skill, [obra/superpowers](https://github.com/obra/superpowers) (MIT – Debugging, Verification, Planung, Review-Umgang), [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) (MIT – React-Performance, Web Interface Guidelines), [trailofbits/skills](https://github.com/trailofbits/skills) (CC-BY-SA-4.0 – Sharp Edges, Insecure Defaults, Supply Chain; Ideen paraphrasiert).

@@ -31,6 +31,12 @@ add() { ctx="${ctx}${ctx:+ }$1"; }
 if has 'design|дизайн|редизайн|(^|[^a-z])u[ix]([^a-z]|$)|interface|интерфейс|oberfläche|gestalt|layout|вёрст|верст|лендинг|landing|startseite|(сделай|создай|сверстай|переделай|build|create|make|erstell|bau|gestalte).{0,40}(сайт|website|webseite|homepage|seite|app|приложени)|dashboard|дашборд|дэшборд|frontend|фронтенд|component|компонент|komponente|tailwind|(^|[^a-z])css|макет|mockup|figma|экран|bildschirm|красив|schön|premium|премиум'; then
   add "[design] Load and follow the \`design\` skill (plus \`dashboard-design\` / \`landing-page\` if relevant). Hard bans unless explicitly requested: no content boxed in bordered cards, radius 0-4px, no decorative shadows or borders, no icons in colored tiles, no decorative icons/emoji, no purple/blue gradients, gradient text or glassmorphism, no template layouts, no unstyled shadcn/library defaults. Show the design plan first; finish with slop-scan, visual-qa screenshots and ui-reviewer."
 fi
+if has 'react|next\.?js|(^|[^a-z])vue|svelte|frontend|фронтенд|component|компонент|komponente|(^|[^a-z])form([^a-z]|$)|форм[аыу]|formular|hydration|re-?render|bundle|playwright'; then
+  add "[frontend-engineering] Apply the \`frontend-engineering\` skill: no waterfalls (Promise.all), small client bundles (Server Components, dynamic imports), no derived state in effects, interface details (forms, focus-visible, URL state, typography, reduced motion)."
+fi
+if has '(^|[^a-z])bug|баг|ошибк|не работает|сломал|fehler|funktioniert nicht|kaputt|crash|exception|stack ?trace|failing|падает|flaky|regression'; then
+  add "[debugging] Use the \`debugging\` skill: reproduce, find the root cause before any fix, one hypothesis at a time, failing test first; after 3 failed fixes stop and rethink. Delegate to \`debugger\` if the cause is not obvious."
+fi
 if has '(^|[^a-z])(erp|crm)([^a-z]|$)|склад|lager|warenwirtschaft|инвойс|rechnung|счёт-фактур|бухгалтер|buchhaltung|faktur|aufträge|заказ|back.?office|admin.?panel|админк|internal tool|b2b|kundenverwaltung|учёт|учет|warehouse|inventory|invoice|datev|xrechnung|zugferd'; then
   add "[business-apps] Load the \`business-apps\` skill (and \`orchestrate\` for a full system): model the domain first, money as integers/decimal, immutable numbered documents, audit log, RBAC, multi-tenant isolation, GoBD/DATEV/XRechnung for Germany, power-user UX. Start with \`architect\` and a spec."
 fi

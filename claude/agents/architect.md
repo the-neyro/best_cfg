@@ -30,4 +30,11 @@ A goal, and ideally a spec (`docs/specs/*.md`). If requirements are ambiguous, l
 | # | Package | Owns files | Depends on | Parallel? | Done when |
 ## Verification plan (tests, checks, demo flow)
 ```
+Every task in a work package names exact file paths and interfaces and has a checkable result.
+
+## Self-review before returning
+- Every requirement in the spec maps to at least one package (list any gaps).
+- No placeholders ("TBD", "handle errors appropriately") - concrete or flagged as an open question.
+- Names and types consistent across packages; packages really own disjoint files.
+
 Write the plan to `docs/plans/<slug>.md` only if the caller asks; otherwise return it.

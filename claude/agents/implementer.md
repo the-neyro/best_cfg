@@ -4,6 +4,8 @@ description: Focused engineer that implements one clearly scoped work package (f
 tools: Read, Grep, Glob, Bash, Edit, Write, WebFetch
 model: opus
 effort: high
+skills:
+  - verification
 color: green
 ---
 

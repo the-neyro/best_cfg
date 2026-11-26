@@ -44,6 +44,8 @@ Create tokens before components (CSS variables / Tailwind v4 `@theme`): colors, 
 - Images with fixed aspect ratios and no layout shift.
 
 ### 5. Check, deterministically and visually
+Code quality and interaction details: follow the `frontend-engineering` skill (performance, forms, focus, URL state, typography details).
+
 1. Run the slop scanner on the changed UI code and fix every finding:
    `node <this skill's folder>/scripts/slop-scan.mjs src` (path to the UI source; Claude Code install: `~/.claude/skills/design/scripts/slop-scan.mjs`).
 2. Render and screenshot with the `visual-qa` skill (375 / 768 / 1440, light + dark). Look at every screenshot and ask: "Would a designer at a top studio ship this? Does anything look like a template?" Fix and re-shoot.
