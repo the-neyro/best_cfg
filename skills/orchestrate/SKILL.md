@@ -13,8 +13,8 @@ You are the lead. Subagents bring parallelism, isolation of noisy work and an un
 |---|---|
 | Small fix, one file, clear cause | Do it yourself. No subagents. |
 | Normal feature (one area) | Do it yourself; then one `code-reviewer` pass. Add `security-auditor` only for risk areas (auth, payments, personal data, uploads, money, migrations). |
-| Feature across areas / new module | `architect` plan -> implement (parallel `implementer`s for independent packages) -> `test-writer` -> reviewers in parallel. |
-| New app / large system (ERP, CRM, platform) | `/spec` with the user first -> `architect` -> phased build, 2-4 parallel implementers per phase -> full review round per phase. |
+| Feature across areas / small app (roughly < 3k lines, e.g. a mini-CRM) | Plan it yourself (short written plan), build sequentially, keep tests green per step. Subagents only for review by risk tier. Parallel implementers rarely pay off here: context gathering and merging cost more than they save. |
+| Large system (multi-module ERP/platform, several independent packages of real size) | `/spec` with the user first -> `architect` -> phased build, 2-4 parallel `implementer`s per phase on disjoint files (worktree isolation) -> review round per phase. |
 | Research / audit across many sources | 2-5 parallel `researcher`s with disjoint scopes -> you synthesize. |
 
 ## 2. Team (Claude Code subagents)
