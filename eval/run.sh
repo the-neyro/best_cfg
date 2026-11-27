@@ -6,6 +6,13 @@
 # Results: $EVAL_DIR/<variant>-<task>/, logs $EVAL_DIR/<variant>-<task>.log,
 # timings and limit hits in $EVAL_DIR/status.txt.
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# Run from a private copy: bash reads scripts while executing, so editing run.sh
+# during a long eval would corrupt the running batch.
+if [ -z "${EVAL_RUN_COPY:-}" ]; then
+  tmp="$(mktemp "${TMPDIR:-/tmp}/eval-run.XXXXXX.sh")"; cp "${BASH_SOURCE[0]}" "$tmp"
+  EVAL_RUN_COPY=1 EVAL_REPO="$REPO" exec bash "$tmp" "$@"
+fi
+REPO="${EVAL_REPO:-$REPO}"
 E="${EVAL_DIR:-$HOME/eval-run}"
 MODEL="${EVAL_MODEL:-opus}"
 TIMEOUT="${EVAL_TIMEOUT:-1800}"
