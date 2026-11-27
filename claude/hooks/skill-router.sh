@@ -34,7 +34,7 @@ fi
 if has 'pwa|mobile app|мобильн|react native|expo|i18n|übersetz|перевод интерфейс|mehrsprachig|мультиязыч|email.?template|e-?mail-?vorlage|шаблон письм|react|next\.?js|(^|[^a-z])vue|svelte|frontend|фронтенд|component|компонент|komponente|(^|[^a-z])form([^a-z]|$)|форм[аыу]|formular|hydration|re-?render|bundle|playwright'; then
   add "[frontend-engineering] Apply the \`frontend-engineering\` skill: no waterfalls (Promise.all), small client bundles (Server Components, dynamic imports), no derived state in effects, interface details (forms, focus-visible, URL state, typography, reduced motion)."
 fi
-if has '(^|[^a-z])bug|баг|ошибк|не работает|не грузит|не открывает|не запускает|белый экран|вылета|зависа|глючит|stürzt|absturz|hängt|freez|сломал|fehler|funktioniert nicht|geht nicht|lädt nicht|weiße seite|kaputt|crash|exception|(^|[^a-z])error|throws|stack ?trace|failing|падает|flaky|regression|white screen|does(n.t| not) (work|load)'; then
+if has '(^|[^a-z])bug|баг|ошибк|не работает|не грузит|не открывает|не запускает|белый экран|ничего не делает|не реагирует|не срабатывает|reagiert nicht|passiert nichts|does nothing|not responding|вылета|зависа|глючит|stürzt|absturz|hängt|freez|сломал|fehler|funktioniert nicht|geht nicht|lädt nicht|weiße seite|kaputt|crash|exception|(^|[^a-z])error|throws|stack ?trace|failing|падает|flaky|regression|white screen|does(n.t| not) (work|load)'; then
   add "[debugging] Use the \`debugging\` skill: reproduce, find the root cause before any fix, one hypothesis at a time, failing test first; after 3 failed fixes stop and rethink. Delegate to \`debugger\` if the cause is not obvious."
 fi
 if has '(^|[^a-z])(erp|crm)([^a-z]|$)|склад|lager|warenwirtschaft|инвойс|rechnung|счёт-фактур|бухгалтер|buchhaltung|faktur|aufträge|заказ|back.?office|admin.?panel|админк|internal tool|b2b|kundenverwaltung|учёт|учет|warehouse|inventory|invoice|datev|xrechnung|zugferd'; then
@@ -61,7 +61,7 @@ fi
 if has '(^|[^a-z])ai([^a-z]|$)|(^|[^а-яё])ии([^а-яё]|$)|нейросет|(^|[^a-z])ki([^a-z]|$)|llm|gpt|claude api|chat-?bot|чат-?бот|(^|[^a-z])rag([^a-z]|$)|embedding|prompt'; then
   add "[ai-features] Load the \`ai-features\` skill (and \`claude-api\` if available): simplest tier first, eval set before prompt tuning, structured outputs validated, prompt-injection defenses, cost caps."
 fi
-if has 'auth|login|логин|регистрац|registrier|anmeld|sign.?up|signup|kundenportal|личный кабинет|кабинет клиента|passwor|парол|session|сесси|token|токен|oauth|security|безопасн|sicherheit|uploads?|загрузк|payment|оплат|zahlung|stripe|webhook|admin|роль|rolle|permission|доступ|dsgvo|gdpr'; then
+if has 'auth|login|логин|spam|спам|(^|[^a-z])sicher|безопасн|регистрац|registrier|anmeld|sign.?up|signup|kundenportal|личный кабинет|кабинет клиента|passwor|парол|session|сесси|token|токен|oauth|security|безопасн|sicherheit|uploads?|загрузк|payment|оплат|zahlung|stripe|webhook|admin|роль|rolle|permission|доступ|dsgvo|gdpr'; then
   add "[security] Apply the \`secure-coding\` skill and run \`security-auditor\` before finishing."
 fi
 

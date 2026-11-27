@@ -60,6 +60,9 @@ Die Hauptsession ist der **Orchestrator**: kleine Aufgaben selbst, große als Pl
 | format-on-edit | Formatiert mit dem Formatter des Projekts (Biome/Prettier/Ruff/gofmt/rustfmt) |
 | verify-on-stop (Projekt) | Typecheck + Lint, bevor Claude „fertig“ sagt |
 
+## Getestet (A/B gegen Claude ohne Konfig)
+8 Aufgaben mit gleichem Modell (Opus 5.5): Login-Server, Landingpage, Bericht, Dashboard, ERP-Rechnungsmodul, SEO/GEO-Audit, Über-uns-Text, kleine Umbenennung. Die Konfig gewinnt oder zieht in allen gleich - deutlich bei Design (0 statt 5-15 AI-Slop-Muster), Sicherheit, Testabdeckung und Ehrlichkeit (keine erfundenen Fakten). Preis: große Aufgaben dauern 4-10x länger, weil geprüft, getestet und reviewt wird. Details: [eval/RESULTS-2026-11-27.md](eval/RESULTS-2026-11-27.md), wiederholbar mit `bash eval/run.sh all`.
+
 ## Konventionen
 - Antworten in der Sprache des Nutzers (Russisch/Deutsch), kurz, mit Humor.
 - Code: Bezeichner Englisch; Kommentare, Docstrings, Commits, Doku und Fehlermeldungen **Deutsch**. Komplett deutsche Bezeichner? Eine Zeile in `core/AGENTS.md` → Abschnitt „Language“ ändern.

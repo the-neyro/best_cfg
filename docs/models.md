@@ -31,6 +31,9 @@ Bedienung: `/effort high`, `/model fable`, und `ultrathink` im Prompt für einen
 - **Festgefahren / Architektur / großer Umbau**: `/model fable`, Effort `high`.
 - **Premium-Design**: `opus` oder `fable` + `high`. Geschmack skaliert mit dem Modell.
 
+## Gemessen (27.11.2026)
+Mit Konfig (opus, high) dauerten große Aufgaben 4-10x länger als Opus ohne Konfig, kleine etwa 2x - dafür mit Tests, Reviews und Fact-Check, deutlich weniger generischem Design und weniger erfundenen Fakten. Empfehlung: high als Standard behalten; beim schnellen Iterieren an Entwürfen `/effort medium`, für triviale Massenaufgaben `/model sonnet`.
+
 ## Subagents dieser Konfig
 | Agent | Modell | Grund |
 |---|---|---|
