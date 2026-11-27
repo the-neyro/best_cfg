@@ -17,7 +17,7 @@ Code that compiles can still look broken. This skill closes the loop: render -> 
    # options: --widths 375,768,1280,1440  --schemes light,dark  --viewport-only  --wait 1000
    ```
    If Playwright MCP is connected, you may use it instead (`browser_resize`, `browser_navigate`, `browser_take_screenshot`, `browser_console_messages`).
-3. **Read the report**: fix every console error, failed request and horizontal overflow first.
+3. **Read the report**: fix every console error, failed request and horizontal overflow first. The script also audits computed styles (`design:` font families, radius > 4px, static shadows; `content:` h1 count, words and primary actions in the first screen; `a11y:` tiny text and tap targets; `layout:` left-edge alignment). Fix each finding or justify it against the brief. Use `--app` for dashboards, CRMs and admin UIs (skips the marketing content-density checks).
 4. **Look at every screenshot** with the Read tool. Check, per viewport and theme:
    - Hierarchy: is the primary element obvious? Is the primary action visible without scrolling on mobile?
    - Alignment and spacing consistency; nothing touching the viewport edges (min 16px gutters on mobile).
