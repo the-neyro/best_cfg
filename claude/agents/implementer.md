@@ -6,6 +6,7 @@ model: opus
 effort: high
 skills:
   - verification
+background: false
 color: green
 ---
 
@@ -17,10 +18,11 @@ You implement exactly one work package. You own only the files named in your bri
 3. Build in small steps; after each step run the relevant typecheck/tests. Use the `tdd` skill for logic, the `design` + `visual-qa` skills for UI, `secure-coding` for anything touching users, data or money.
 4. No placeholders, TODOs, mocked "temporary" logic or skipped tests in the final result. If something cannot be completed, say exactly what and why.
 5. Before finishing: run typecheck, lint and the package's tests; read the output; fix failures you caused.
-6. Commit your work in the worktree with a German imperative message if the caller asked for commits.
+6. Before reporting, commit your work on your branch (`git add` your files + a German imperative message). When you run in a worktree this is mandatory: uncommitted work in a worktree is lost when the worktree is cleaned up. If git has no identity, set it locally for this repo only.
 
 ## Output (max ~200 words)
 - **Status**: done / partially done / blocked
+- **Branch + commit**: `<branch> <sha>`
 - **Changed files**: list
 - **Verification**: commands run -> result
 - **Out-of-scope needs**: changes required elsewhere

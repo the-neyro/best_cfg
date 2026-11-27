@@ -45,9 +45,9 @@ run_one() { # variant task
     --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "Bash" "Agent" "Skill" "WebSearch" "WebFetch" \
     --output-format stream-json --verbose < /dev/null > "$E/$v-$t.jsonl" 2>&1
   local rc=$?; end=$(date +%s)
-  jq -r 'select(.type=="result") | .result // empty' "$E/$v-$t.jsonl" > "$E/$v-$t.log" 2>/dev/null
+  jq -rR 'fromjson? | select(.type=="result") | .result // empty' "$E/$v-$t.jsonl" > "$E/$v-$t.log" 2>/dev/null
   [ -s "$E/$v-$t.log" ] || tail -c 2000 "$E/$v-$t.jsonl" > "$E/$v-$t.log"
-  local agents; agents=$(jq -r 'select(.type=="assistant") | .message.content[]? | select(.type=="tool_use" and (.name=="Agent" or .name=="Task")) | .input.subagent_type // "general"' "$E/$v-$t.jsonl" 2>/dev/null | sort | uniq -c | awk '{printf "%s:%s ", $2, $1}')
+  local agents; agents=$(jq -rR 'fromjson? | select(.type=="assistant") | .message.content[]? | select(.type=="tool_use" and (.name=="Agent" or .name=="Task")) | .input.subagent_type // "general"' "$E/$v-$t.jsonl" 2>/dev/null | sort | uniq -c | awk '{printf "%s:%s ", $2, $1}')
   local lim=""
   # Only real CLI/API limit errors, not the words "rate limit" inside an answer.
   if [ "$rc" -ne 0 ] || [ "$(wc -c < "$E/$v-$t.log")" -lt 400 ]; then

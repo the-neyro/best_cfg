@@ -6,6 +6,7 @@ model: sonnet
 effort: high
 skills:
   - tdd
+background: false
 color: green
 ---
 

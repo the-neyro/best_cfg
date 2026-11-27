@@ -7,6 +7,7 @@ effort: xhigh
 skills:
   - debugging
   - verification
+background: false
 color: red
 ---
 

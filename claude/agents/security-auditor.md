@@ -6,6 +6,7 @@ model: opus
 effort: high
 skills:
   - secure-coding
+background: false
 color: orange
 ---
 
