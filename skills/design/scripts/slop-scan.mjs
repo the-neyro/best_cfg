@@ -53,6 +53,40 @@ function walk(p) {
 }
 targets.forEach(walk);
 
+// Second pass: CSS rule blocks (plain CSS / <style>), where card styling spans several lines.
+const cssRules = [
+  ["css-card-trinity", "HIGH", "CSS rule with border + radius >= 8px + shadow (generic card)",
+    (b) => /(^|[;{\s])border(-[a-z]+)?\s*:\s*[^;]*\d+px/.test(b) && radiusPx(b) >= 8 && /box-shadow\s*:\s*(?!none)/.test(b)],
+  ["css-card", "MED", "CSS rule with border + radius >= 10px (boxed card)",
+    (b) => /(^|[;{\s])border\s*:\s*[^;]*\d+px/.test(b) && radiusPx(b) >= 10],
+  ["css-icon-circle", "MED", "small fixed-size circle/rounded box with background (icon tile)",
+    (b) => /(width|inline-size)\s*:\s*(2[4-9]|3\d|4[0-8])px/.test(b) && /(height|block-size)\s*:\s*(2[4-9]|3\d|4[0-8])px/.test(b) && (radiusPx(b) >= 8 || /border-radius\s*:\s*50%/.test(b)) && /background/.test(b)],
+];
+function radiusPx(b) {
+  const m = b.match(/border-radius\s*:\s*([0-9.]+)(px|rem)/);
+  if (!m) return 0;
+  return m[2] === "rem" ? parseFloat(m[1]) * 16 : parseFloat(m[1]);
+}
+for (const [id, , ] of cssRules) findings.set(id, []);
+function scanCss(p) {
+  const text = readFileSync(p, "utf8");
+  const re = /([^{}]+)\{([^{}]*)\}/g;
+  let m;
+  while ((m = re.exec(text))) {
+    const sel = m[1].trim().split("\n").pop().trim();
+    if (/tooltip|(^|[^a-z])tip([^a-z]|$)|popover|dropdown|menu|dialog|modal|toast|overlay/i.test(sel)) continue; // floating layers may have shadows
+    const line = text.slice(0, m.index + m[1].length).split("\n").length;
+    for (const [id, , , test] of cssRules) if (test(m[2])) findings.get(id).push(`${relative(process.cwd(), p)}:${line} ${sel.slice(0, 40)}`);
+  }
+}
+function walkCss(p) {
+  let st; try { st = statSync(p); } catch { return; }
+  if (st.isDirectory()) { for (const n of readdirSync(p)) if (!SKIP.has(n)) walkCss(join(p, n)); }
+  else if ([".css", ".scss", ".html", ".vue", ".svelte", ".astro"].includes(extname(p))) scanCss(p);
+}
+targets.forEach(walkCss);
+rules.push(...cssRules.map(([id, sev, desc]) => [id, sev, desc, null]));
+
 let high = 0;
 let total = 0;
 console.log(`slop-scan: ${files} files scanned\n`);
