@@ -24,7 +24,8 @@ P[crm]='Сделай мини-CRM для автосервиса: клиенты,
 P[design-kids]='Сделай лендинг для детской школы программирования «CodeKids» в Гамбурге (дети 8–14 лет, курсы по Scratch, Python и роботам). Один файл index.html, без внешних CDN. Тексты на немецком.'
 P[design-wine]='Сделай лендинг для винного бара «Rebstock» в Берлине-Кройцберге (натуральные вина, маленькая кухня, вечера с винодельнями). Один файл index.html, без внешних CDN. Тексты на немецком.'
 P[design-saas]='Сделай лендинг для B2B-сервиса мониторинга серверов «Pulsewatch» (аптайм, алерты, статус-страницы, для DevOps-команд). Один файл index.html, без внешних CDN. Тексты на английском.'
-TASKS_ALL="landing report auth dashboard erp seo text crm design-kids design-wine design-saas"
+P[crm-orch]="${P[crm]} Работай как оркестратор: сначала план от субагента architect, затем параллельные implementer в отдельных worktree по независимым пакетам, потом слияние и ревью по уровню риска."
+TASKS_ALL="landing report auth dashboard erp seo text crm crm-orch design-kids design-wine design-saas"
 # Variants to run (default both): EVAL_VARIANTS="cfg" for config-only checks.
 VARIANTS="${EVAL_VARIANTS:-cfg base}"
 
