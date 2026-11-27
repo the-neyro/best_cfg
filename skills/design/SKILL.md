@@ -29,6 +29,7 @@ Pick ONE direction from `references/design-directions.md` (or define your own wi
 - **Palette**: 4-6 named colors in OKLCH (background, ink, muted ink, line, one accent, optional support).
 - **Type**: families, scale, weights, tracking. See `references/typography-color.md`.
 - **Grid & space**: columns, max width, gutters, spacing scale; ASCII wireframe of the key screens/sections, with asymmetry where it helps.
+- **Hero composition**: choose deliberately from the subject, not by habit - typographic poster (type only, full width), full-bleed photography with overlaid type, product-first (real UI or object as the hero), editorial (centered headline + lead + image band below), asymmetric collage, data-first (one striking number or chart), or a split layout. The split "giant headline left + boxed interactive widget right" has become this config's own default - use it only when the brief clearly calls for a tool in the hero.
 - **Signature moment**: the ONE memorable element (oversized type, a striking product visual, an unusual grid break, a data visualization, a precise interaction).
 - **How things are grouped** without cards (space, rules, color fields, typography).
 

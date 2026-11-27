@@ -12,6 +12,7 @@ If the design matches an item here, change it unless the brief explicitly asks f
 - [ ] Purple/indigo/violet/pink gradients; gradient text; glassmorphism (`backdrop-blur` panels); blurred gradient blobs; glow effects.
 
 ## Layout and content clichés
+- [ ] Our own house default: giant headline on the left + boxed interactive widget/calculator on the right. Fine once, a template when it appears on every page.
 - [ ] Centered hero: badge pill ("New ✨ ...") + gradient headline + subtext + two buttons + floating screenshot.
 - [ ] 3- or 6-column grid of identical feature blocks with vague benefits ("Blazing fast", "Secure", "Scalable").
 - [ ] Avatar stack + "Trusted by 10,000+ users"; fake company logos; unsourced stats ("10x faster").
