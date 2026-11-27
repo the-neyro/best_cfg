@@ -107,12 +107,12 @@ Adapt names and values to the design plan. Components reference only these token
 ## Fonts with next/font (App Router)
 
 ```tsx
-// app/fonts.ts
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+// app/fonts.ts - example pairing from the dice ("Source Serif 4 + IBM Plex Sans + IBM Plex Mono"); pick per project
+import { IBM_Plex_Mono, IBM_Plex_Sans, Source_Serif_4 } from "next/font/google"; // self-hosted at build time
 
-export const text = Geist({ subsets: ["latin", "cyrillic"], variable: "--font-text", display: "swap" });
-export const heading = Instrument_Serif({ subsets: ["latin"], weight: "400", variable: "--font-heading", display: "swap" });
-export const code = Geist_Mono({ subsets: ["latin"], variable: "--font-code", display: "swap" });
+export const text = IBM_Plex_Sans({ subsets: ["latin", "cyrillic"], weight: ["400", "500", "600"], variable: "--font-text", display: "swap" });
+export const heading = Source_Serif_4({ subsets: ["latin", "cyrillic"], variable: "--font-heading", display: "swap" });
+export const code = IBM_Plex_Mono({ subsets: ["latin", "cyrillic"], weight: ["400", "500"], variable: "--font-code", display: "swap" });
 
 // app/layout.tsx -> <html className={`${text.variable} ${heading.variable} ${code.variable}`}>
 ```

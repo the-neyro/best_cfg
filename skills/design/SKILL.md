@@ -16,7 +16,8 @@ Generic AI UI has a recognizable fingerprint: a grid of rounded cards, each with
 5. **No icon tiles and no icon confetti.** No icon in a colored rounded square above feature text, no icon before every heading or bullet, no emoji as icons. Icons only where they speed recognition (navigation, actions, status), from one deliberately chosen set at one stroke width - or none at all. Replace decorative icons with numbers, typography, real product imagery or purpose-made illustration.
 6. **No gradients, glass or glow** as the look: no purple/blue/pink gradients, gradient text, glassmorphism, blurred blobs, neon glows.
 7. **No template layouts**: no centered hero + two buttons + floating screenshot, no 3-column feature grid of identical blocks, no "New ✨" pill badge above the headline, no avatar stack "loved by 10,000+ users", no fake logos or stats.
-8. **No unstyled library defaults.** shadcn/ui, MUI, Chakra, DaisyUI, Bootstrap defaults ARE the AI look. Use their behavior (accessibility primitives), restyle every visual with the project's tokens.
+8. **No AI-default typefaces.** Never use these as the brand's display or text face: Inter, Roboto, Open Sans, Lato, Poppins, Montserrat, Raleway, Nunito, Space Grotesk, DM Sans/DM Serif, Plus Jakarta Sans, Outfit, Sora, Manrope, Urbanist, Lexend, Geist, Instrument Serif/Sans, Fraunces, Playfair Display, Bricolage Grotesque, Syne, Satoshi, General Sans, Clash Display, Cabinet Grotesk, Space Mono, Bebas Neue, Abril Fatface - or a bare system stack. They are what every generated site uses. Pick from the dice / `references/typography-color.md`, or a licensed foundry face for premium brands; fonts are self-hosted (`next/font/local` or `@font-face`), never left to fall back to system fonts.
+9. **No unstyled library defaults.** shadcn/ui, MUI, Chakra, DaisyUI, Bootstrap defaults ARE the AI look. Use their behavior (accessibility primitives), restyle every visual with the project's tokens.
 
 ## Process
 

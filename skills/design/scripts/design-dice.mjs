@@ -49,34 +49,36 @@ const COMPOSITIONS = [
 ];
 
 const TYPE = [
-  { id: "Fraunces + Inter", mood: "warm editorial", fam: "warm", cyr: false, tags: ["food", "wine", "editorial", "culture"] },
-  { id: "Playfair Display + Source Sans 3", mood: "classic contrast", fam: "refined", cyr: true, tags: ["law", "hotel", "wine"] },
-  { id: "Cormorant Garamond + Manrope", mood: "quiet luxury", fam: "refined", cyr: true, tags: ["fashion", "hotel", "real estate", "wine"] },
+  { id: "Source Serif 4 + Source Sans 3", mood: "calm classic", fam: "refined", cyr: true, tags: ["law", "consulting", "publishing", "health"] },
   { id: "EB Garamond + IBM Plex Sans", mood: "scholarly", fam: "refined", cyr: true, tags: ["law", "school", "consulting", "publishing"] },
-  { id: "Literata + Inter", mood: "bookish modern", fam: "warm", cyr: true, tags: ["blog", "education", "nonprofit"] },
-  { id: "Spectral + Commissioner", mood: "refined calm", fam: "refined", cyr: true, tags: ["health", "consulting"] },
+  { id: "Cormorant Garamond + Commissioner", mood: "quiet luxury", fam: "refined", cyr: true, tags: ["fashion", "hotel", "real estate", "wine", "beauty"] },
+  { id: "Spectral + Golos Text", mood: "refined calm", fam: "refined", cyr: true, tags: ["health", "consulting", "finance"] },
   { id: "PT Serif + PT Sans", mood: "solid civic", fam: "refined", cyr: true, tags: ["public", "nonprofit", "law"] },
-  { id: "Prata + Golos Text", mood: "elegant", fam: "refined", cyr: true, tags: ["beauty", "fashion", "wine"] },
-  { id: "Instrument Serif + Geist", mood: "contemporary editorial", fam: "refined", cyr: "check", tags: ["agency", "saas", "studio"] },
-  { id: "Inter Display (one family)", mood: "Swiss precise", fam: "technical", cyr: true, tags: ["saas", "finance", "b2b"] },
-  { id: "Onest (one family)", mood: "friendly neutral", fam: "technical", cyr: true, tags: ["app", "service", "local"] },
-  { id: "Golos Text + JetBrains Mono", mood: "technical clear", fam: "technical", cyr: true, tags: ["devops", "saas", "monitoring", "developer"] },
-  { id: "IBM Plex Sans + IBM Plex Mono", mood: "engineering", fam: "technical", cyr: true, tags: ["devops", "industrial", "monitoring", "data"] },
-  { id: "Manrope + Space Mono", mood: "tech friendly", fam: "technical", cyr: "check", tags: ["startup", "app"] },
-  { id: "Unbounded + Onest", mood: "bold playful", fam: "bold", cyr: true, tags: ["kids", "event", "youth", "music"] },
-  { id: "Rubik + Rubik Mono One", mood: "chunky fun", fam: "bold", cyr: true, tags: ["kids", "games", "school"] },
-  { id: "Jost (geometric)", mood: "Bauhaus", fam: "bold", cyr: true, tags: ["kids", "design", "architecture", "school"] },
-  { id: "Oswald + Fira Sans", mood: "condensed industrial", fam: "bold", cyr: true, tags: ["workshop", "garage", "werkstatt", "sport", "logistics"] },
-  { id: "Russo One + Exo 2", mood: "motor/sport", fam: "bold", cyr: true, tags: ["garage", "auto", "sport"] },
-  { id: "Archivo Black + Archivo", mood: "brutalist loud", fam: "bold", cyr: "check", tags: ["agency", "event", "music"] },
-  { id: "Bricolage Grotesque + Inter", mood: "quirky modern", fam: "warm", cyr: "check", tags: ["startup", "creative", "food"] },
-  { id: "Syne + Manrope", mood: "artsy", fam: "bold", cyr: "check", tags: ["art", "gallery", "studio"] },
-  { id: "Yeseva One + Lora", mood: "romantic", fam: "refined", cyr: true, tags: ["wedding", "flowers", "bakery", "wine"] },
-  { id: "Alegreya + Alegreya Sans", mood: "literary humanist", fam: "warm", cyr: true, tags: ["culture", "bookshop", "school"] },
-  { id: "Nunito + Nunito Sans", mood: "soft friendly", fam: "warm", cyr: true, tags: ["health", "family", "kids"] },
-  { id: "Ubuntu + Ubuntu Mono", mood: "open-source", fam: "technical", cyr: true, tags: ["developer", "community"] },
-  { id: "Comfortaa + Raleway", mood: "light rounded", fam: "warm", cyr: true, tags: ["wellness", "spa"] },
-  { id: "Montserrat Alternates + Montserrat", mood: "retro geometric", fam: "warm", cyr: true, tags: ["bar", "café", "event"] },
+  { id: "Libre Caslon Display + Libre Franklin", mood: "old-world elegant", fam: "refined", cyr: "check", tags: ["law", "wine", "hotel", "bookshop"] },
+  { id: "Bodoni Moda + Albert Sans", mood: "high-contrast fashion", fam: "refined", cyr: "check", tags: ["fashion", "beauty", "jewelry", "gallery"] },
+  { id: "Brygada 1918 + Karla", mood: "heritage", fam: "refined", cyr: "check", tags: ["wine", "craft", "manufactory", "family business"] },
+  { id: "Newsreader + Public Sans", mood: "newspaper", fam: "refined", cyr: "check", tags: ["editorial", "magazine", "nonprofit", "report"] },
+  { id: "Literata + Commissioner", mood: "bookish warm", fam: "warm", cyr: true, tags: ["blog", "education", "nonprofit", "school"] },
+  { id: "Alegreya + Alegreya Sans", mood: "literary humanist", fam: "warm", cyr: true, tags: ["culture", "bookshop", "school", "café"] },
+  { id: "Piazzolla + Onest", mood: "friendly serif", fam: "warm", cyr: true, tags: ["café", "bakery", "family", "local", "kids"] },
+  { id: "Vollkorn + Hanken Grotesk", mood: "hearty", fam: "warm", cyr: "check", tags: ["food", "restaurant", "bar", "brewery", "wine"] },
+  { id: "Young Serif + Work Sans", mood: "retro warm", fam: "warm", cyr: "check", tags: ["café", "bar", "event", "food"] },
+  { id: "Gloock + Schibsted Grotesk", mood: "quirky editorial", fam: "warm", cyr: "check", tags: ["startup", "creative", "food", "agency"] },
+  { id: "Petrona + Atkinson Hyperlegible", mood: "clear & kind", fam: "warm", cyr: "check", tags: ["health", "family", "care", "public", "kids"] },
+  { id: "IBM Plex Sans + IBM Plex Mono", mood: "engineering", fam: "technical", cyr: true, tags: ["devops", "industrial", "monitoring", "data", "saas"] },
+  { id: "Golos Text + JetBrains Mono", mood: "technical clear", fam: "technical", cyr: true, tags: ["devops", "saas", "monitoring", "developer", "crm"] },
+  { id: "Onest (one family)", mood: "friendly neutral", fam: "technical", cyr: true, tags: ["app", "service", "local", "crm", "erp"] },
+  { id: "Hanken Grotesk + Martian Mono", mood: "precise modern", fam: "technical", cyr: "check", tags: ["saas", "finance", "b2b", "analytics"] },
+  { id: "Red Hat Display + Red Hat Mono", mood: "open tech", fam: "technical", cyr: "check", tags: ["developer", "community", "platform", "devops", "saas"] },
+  { id: "Familjen Grotesk + Azeret Mono", mood: "Swiss-ish precise", fam: "technical", cyr: "check", tags: ["agency", "b2b", "architecture", "finance", "monitoring", "saas"] },
+  { id: "Big Shoulders Display + Barlow", mood: "industrial loud", fam: "bold", cyr: "check", tags: ["workshop", "garage", "werkstatt", "logistics", "sport", "event"] },
+  { id: "Fira Sans Extra Condensed + Fira Sans", mood: "condensed industrial", fam: "bold", cyr: true, tags: ["workshop", "garage", "werkstatt", "sport", "logistics"] },
+  { id: "Russo One + Exo 2", mood: "motor/sport", fam: "bold", cyr: true, tags: ["garage", "auto", "sport", "motor"] },
+  { id: "Anybody (variable width) + Chivo", mood: "expressive variable", fam: "bold", cyr: "check", tags: ["agency", "music", "event", "creative", "kids", "coding"] },
+  { id: "Rubik Mono One + Rubik", mood: "chunky fun", fam: "bold", cyr: true, tags: ["kids", "games", "school"] },
+  { id: "Bowlby One + Karla", mood: "playful heavy", fam: "bold", cyr: "check", tags: ["kids", "youth", "snacks", "event"] },
+  { id: "League Gothic + Libre Franklin", mood: "poster condensed", fam: "bold", cyr: "check", tags: ["event", "festival", "bar", "sport", "culture"] },
+  { id: "Climate Crisis + Epilogue", mood: "statement", fam: "bold", cyr: "check", tags: ["nonprofit", "climate", "activism", "manifest"] },
 ];
 
 const PALETTES = [
@@ -117,13 +119,28 @@ const usedPal = new Set(recent.slice(-3).map((r) => r.palette));
 const fits = (item) => (item.tags || []).some((t) => brief.includes(t));
 const typeOk = (t) => !needCyr || t.cyr === true;
 
+// How well a type pairing matches the subject: number of its tags found in the brief.
+const score = (t) => (t.tags || []).filter((tag) => brief.includes(tag)).length;
+const maxScore = Math.max(0, ...TYPE.map(score));
+// Relevance-ranked pool: best matches first, widened until there are enough options to vary.
+let bestTypes = [];
+for (let lvl = maxScore; lvl >= 1 && bestTypes.filter(typeOk).length < 4; lvl--) bestTypes = TYPE.filter((t) => score(t) >= lvl);
+const domainFams = [...new Set(TYPE.filter((t) => score(t) === maxScore && maxScore > 0).map((t) => t.fam))];
+if (bestTypes.filter(typeOk).length < 4 && domainFams.length) bestTypes = [...new Set([...bestTypes, ...TYPE.filter((t) => domainFams.includes(t.fam))])];
+
 function concept(mode) {
   let comps = COMPOSITIONS.filter((c) => !usedComp.has(c.id) && (c.id !== "split-with-tool" || /rechner|calculator|konfigur|booking|tool|калькул/.test(brief)));
   if (mode === "fit") { const fc = comps.filter(fits); if (fc.length) comps = fc; }
+  // Taste guard: every composition (wildcards too) must work with a mood that suits the subject.
+  if (domainFams.length) { const ok = comps.filter((c) => c.fam.some((f) => domainFams.includes(f))); if (ok.length) comps = ok; }
   const composition = pick(comps.length ? comps : COMPOSITIONS);
   // Taste: one mood family for the whole concept, so type, palette and layout agree.
   let types = TYPE.filter((t) => !usedType.has(t.id) && typeOk(t) && composition.fam.includes(t.fam));
-  if (mode === "fit") { const ft = types.filter(fits); if (ft.length) types = ft; }
+  // Taste guard: prefer the best-matching pairings; otherwise stay within the subject's moods
+  // (no sport fonts for a law firm, no scholarly serif for a kids' school).
+  const best = types.filter((t) => bestTypes.includes(t));
+  if (best.length) types = best;
+  else if (domainFams.length) { const inDomain = types.filter((t) => domainFams.includes(t.fam)); if (inDomain.length) types = inDomain; }
   const type = pick(types.length ? types : TYPE.filter((t) => typeOk(t) && composition.fam.includes(t.fam)).concat(TYPE.filter(typeOk)).slice(0, 40));
   let pals = PALETTES.filter((p) => !usedPal.has(p.id) && p.fam.includes(type.fam));
   if (!pals.length) pals = PALETTES.filter((p) => p.fam.includes(type.fam));
@@ -150,4 +167,5 @@ concepts.forEach((c, i) => {
   console.log(`  signature:   ${c.signature}\n`);
 });
 console.log("Pick one (or merge two), adapt it to the brief, and explain why in the design plan.");
+console.log("Never swap in an overused AI default (Inter, Geist, Instrument Serif, Fraunces, Space Grotesk, DM Sans, Manrope, Poppins, Montserrat, Playfair, Satoshi ...). For a premium brand, consider a licensed foundry typeface.");
 console.log(`After building, log it: node design-dice.mjs --log '{"project":"<name>","composition":"<id>","type":"<id>","palette":"<id>","signature":"<text>"}'`);

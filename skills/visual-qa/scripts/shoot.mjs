@@ -126,6 +126,8 @@ for (const r of report) {
   if (r.overflow) issues.push(`horizontal overflow: page ${r.overflow.docWidth}px > viewport ${r.overflow.vw}px (e.g. ${r.overflow.offenders.join(", ")})`);
   const A = r.audit;
   if (A) {
+    const slopFonts = A.fonts.filter((f) => /^(Inter|Roboto|Open Sans|Lato|Poppins|Montserrat|Raleway|Nunito|Space Grotesk|DM Sans|DM Serif Display|Plus Jakarta Sans|Outfit|Sora|Manrope|Urbanist|Lexend|Geist|Instrument Serif|Instrument Sans|Fraunces|Playfair Display|Bricolage Grotesque|Syne|Satoshi|General Sans|Clash Display|Cabinet Grotesk|Space Mono|Bebas Neue|Abril Fatface|system-ui|-apple-system|Segoe UI|Helvetica|Arial|sans-serif|serif)$/i.test(f));
+    if (slopFonts.length) issues.push(`design: AI-default or system font rendered: ${slopFonts.join(", ")} - use a chosen, self-hosted face`);
     if (A.fonts.length > 2) issues.push(`design: ${A.fonts.length} font families (${A.fonts.join(", ")}) - max 2`);
     if (A.rounded > 0) issues.push(`design: ${A.rounded} element(s) with radius > 4px (e.g. ${A.roundedEx})`);
     if (A.shadowed > 0) issues.push(`design: ${A.shadowed} static element(s) with box-shadow (e.g. ${A.shadowEx})`);
