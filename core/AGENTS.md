@@ -32,7 +32,7 @@ Zero errors is the target; verification is how to get there, not confidence.
 
 ## Definition of done
 - Done means verified. Run the typecheck, lint, tests and build that cover the change and read the output. If something cannot be run, say so explicitly.
-- Tests you write to verify the work are part of the deliverable: keep them in the project (e.g. `server.test.js` + a `test` script), never in a temp or scratch folder. "One file" in a request refers to the application code, not to its tests - unless the user explicitly says no test files.
+- Everything that proves or reproduces the result is part of the deliverable and stays in the project - tests (`server.test.js` + a `test` script), calculation scripts behind report numbers (`analysis/`), fixtures - never only in a temp or scratch folder. "One file" in a request refers to the application code, not to its tests or scripts - unless the user explicitly says otherwise.
 - UI: render it and look at it at 375 / 768 / 1440 px, light and dark, and check the console (`visual-qa` skill).
 - Final message: what changed, which commands ran with which result, what is still open. Never claim a check passed that you did not run.
 

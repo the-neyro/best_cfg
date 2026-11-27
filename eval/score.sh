@@ -22,7 +22,7 @@ for v in cfg base; do
   for n in '508[.,  ]?200' '490[.,  ]?200' '18[.,  ]?000' '324' '157[.,  ]?100' '154[.,  ]?300' '178[.,  ]?800' '294[.,  ]?500'; do
     grep -Eq "$n" "$f" && hits=$((hits+1))
   done
-  tells=$(grep -oiE 'nahtlos|maßgeschneidert|ganzheitlich|zukunftsweisend|wegweisend|spannend|eintauchen|Mehrwert|zusammenfassend lässt sich|es ist wichtig zu beachten|im folgenden|spielt eine entscheidende rolle|in der heutigen' "$f" | wc -l)
+  tells=$(grep -oiE 'nahtlos|maßgeschneidert|ganzheitlich|zukunftsweisend|wegweisend|spannend|eintauchen|Mehrwert([^s]|$)|zusammenfassend lässt sich|es ist wichtig zu beachten|im folgenden|spielt eine entscheidende rolle|in der heutigen' "$f" | wc -l)
   printf '%s: file=%s words=%s key-numbers-found=%s/8 ai-tells=%s em-dashes=%s\n' "$v" "$(basename "$f")" "$(wc -w < "$f")" "$hits" "$tells" "$(grep -o '—' "$f" | wc -l)"
 done
 

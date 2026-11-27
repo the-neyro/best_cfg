@@ -49,6 +49,6 @@ tasks="$*"; [ -z "$tasks" ] || [ "$tasks" = all ] && tasks="$TASKS_ALL"
 for t in $tasks; do
   [ -n "${P[$t]}" ] || { echo "unknown task: $t" >&2; continue; }
   run_one cfg "$t" & run_one base "$t" & wait
-  if grep -q "LIMIT_SIGNAL" "$E/status.txt" 2>/dev/null; then echo "LIMIT_STOP after $t" >> "$E/status.txt"; break; fi
+  if grep -E "^done (cfg|base)-$t " "$E/status.txt" | tail -2 | grep -q "LIMIT_SIGNAL"; then echo "LIMIT_STOP after $t" >> "$E/status.txt"; break; fi
 done
 echo "BATCH_DONE $tasks" >> "$E/status.txt"

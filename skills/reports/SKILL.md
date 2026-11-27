@@ -13,7 +13,7 @@ Clarify or infer: reader (CEO, client, team, investor), the decision or action t
 
 ## 2. Gather and verify
 - Use primary data (exports, databases, analytics, invoices, source documents). Note the source and timestamp of every dataset.
-- Compute numbers with code (Python/pandas, SQL), not mentally. Keep the script so every figure is reproducible.
+- Compute numbers with code (Python/pandas, SQL), not mentally. Save the script in the project (e.g. `analysis/<report>.py`) next to the report so every figure is reproducible - not in a temp folder.
 - Cross-check totals: parts sum to the whole, percentages to 100 (± rounding), period comparisons use identical definitions.
 - Every claim gets a source or is marked as an assumption/estimate.
 - Run the `fact-check` skill (or the `fact-checker` subagent) on the final draft. Zero tolerance for wrong numbers, names or dates.
