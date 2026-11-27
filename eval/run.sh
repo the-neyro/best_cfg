@@ -1,31 +1,51 @@
 #!/usr/bin/env bash
+# A/B eval: same prompt, same model, with config (cfg) vs without (base).
+# Runs in batches: one task = a cfg+base pair in parallel.
+#   bash eval/run.sh landing report        # selected tasks
+#   bash eval/run.sh all                   # every task, one batch after another
+# Results: $EVAL_DIR/<variant>-<task>/, logs $EVAL_DIR/<variant>-<task>.log,
+# timings and limit hits in $EVAL_DIR/status.txt.
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-# A/B eval: same prompts, same model, with config (cfg) vs without (base).
 E="${EVAL_DIR:-$HOME/eval-run}"
-mkdir -p "$E/home-cfg" "$E/home-base" "$E/data"
-cp "$REPO/eval/data/sales_q3.csv" "$E/data/"
+MODEL="${EVAL_MODEL:-opus}"
+TIMEOUT="${EVAL_TIMEOUT:-1800}"
+mkdir -p "$E/home-cfg" "$E/home-base"
 HOME="$E/home-cfg" "$REPO/install.sh" --all >/dev/null 2>&1
+
 declare -A P
 P[landing]='Сделай лендинг для немецкой юридической фирмы «Keller & Brandt Rechtsanwälte» (Arbeitsrecht, München). Один файл index.html, без сборки, можно Tailwind через CDN. Тексты на немецком. Сделай реально круто.'
 P[report]='В файле sales_q3.csv данные продаж за Q3. Напиши отчёт для директора на немецком в файл bericht.md. Коротко и по делу.'
 P[auth]='Напиши на Node.js (Express) сервер с регистрацией и логином пользователей в один файл server.js плюс package.json. Пользователей храни в SQLite. Сделай production-ready.'
+P[dashboard]='Сделай дашборд продаж для интернет-магазина велосипедов: один файл dashboard.html, без внешних CDN и библиотек (всё инлайн, графики на SVG/Canvas), реалистичные данные за 12 месяцев захардкодь. Интерфейс на немецком. Чтобы директор за 5 секунд понял, как дела.'
+P[erp]='Сделай модуль счетов (Rechnungen) для нашей ERP: Node.js + TypeScript + SQLite (better-sqlite3). Создание счёта с позициями, НДС 19 % и 7 %, сквозная нумерация RE-2026-00001, сторно (Storno/Gutschrift) вместо удаления, расчёт сумм. Сервисный слой + тесты (vitest). Должно работать.'
+P[seo]='Вот наш сайт (index.html, app.js, robots.txt). Проведи SEO и GEO аудит (чтобы нас находили Google и ИИ-поисковики вроде ChatGPT и Perplexity), запиши результат в audit.md с приоритетами и сразу исправь файлы.'
+P[text]='Напиши текст для страницы «О нас» на русском для немецкой IT-компании WerkstattCRM: мы делаем CRM для автосервисов (запись клиентов, заказ-наряды, счета), команда 12 человек из Мюнхена, работаем с 2019 года, 340 автосервисов-клиентов. Человеческим языком, файл about.md.'
+TASKS_ALL="landing report auth dashboard erp seo text"
 
-run() { # variant task
-  local v="$1" t="$2" d="$E/$1-$2"
+run_one() { # variant task
+  local v="$1" t="$2" d="$E/$1-$2" start end
   rm -rf "$d"; mkdir -p "$d"; cd "$d" || return
   git init -q
-  [ "$t" = report ] && cp "$E/data/sales_q3.csv" .
-  if [ "$v" = cfg ]; then
-    HOME="$E/home-cfg" $REPO/install.sh --project "$d" >/dev/null 2>&1
-  fi
-  HOME="$E/home-$v" timeout 1500 claude -p "${P[$t]}" --model opus \
-    --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "Bash" "Agent" "Skill" \
+  case "$t" in
+    report) cp "$REPO/eval/data/sales_q3.csv" . ;;
+    seo) cp "$REPO/eval/data/seo-site/"* . ;;
+  esac
+  git add -A >/dev/null 2>&1; git -c user.email=eval@local -c user.name=eval commit -qm init >/dev/null 2>&1
+  [ "$v" = cfg ] && HOME="$E/home-cfg" "$REPO/install.sh" --project "$d" >/dev/null 2>&1
+  start=$(date +%s)
+  HOME="$E/home-$v" timeout "$TIMEOUT" claude -p "${P[$t]}" --model "$MODEL" \
+    --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "Bash" "Agent" "Skill" "WebSearch" "WebFetch" \
     < /dev/null > "$E/$v-$t.log" 2>&1
-  echo "done $v-$t exit=$?" >> "$E/status.txt"
+  local rc=$?; end=$(date +%s)
+  local lim=""
+  grep -qiE 'usage limit|rate limit|limit reached|quota' "$E/$v-$t.log" && lim=" LIMIT_SIGNAL"
+  echo "done $v-$t exit=$rc seconds=$((end-start))$lim" >> "$E/status.txt"
 }
 
-for t in landing report auth; do
-  for v in cfg base; do run "$v" "$t" & done
+tasks="$*"; [ -z "$tasks" ] || [ "$tasks" = all ] && tasks="$TASKS_ALL"
+for t in $tasks; do
+  [ -n "${P[$t]}" ] || { echo "unknown task: $t" >&2; continue; }
+  run_one cfg "$t" & run_one base "$t" & wait
+  if grep -q "LIMIT_SIGNAL" "$E/status.txt" 2>/dev/null; then echo "LIMIT_STOP after $t" >> "$E/status.txt"; break; fi
 done
-wait
-echo ALL_DONE >> "$E/status.txt"
+echo "BATCH_DONE $tasks" >> "$E/status.txt"

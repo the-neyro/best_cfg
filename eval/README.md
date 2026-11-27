@@ -1,5 +1,7 @@
 # A/B-Eval
 
+Benötigt bash >= 4 (macOS: `brew install bash`). Aufgaben: landing, report, auth, dashboard, erp, seo, text; `bash eval/run.sh all` oder einzelne Namen.
+
 Vergleicht dieselben Aufgaben mit Konfig (`cfg`) und ohne (`base`), gleiches Modell.
 
 ```bash
