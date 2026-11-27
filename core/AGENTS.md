@@ -3,8 +3,9 @@
 Universal: read by Claude Code, Codex, Cursor, Gemini CLI, Copilot and other agents. A project's own AGENTS.md / CLAUDE.md wins where it is more specific.
 
 ## Language
-- Reply in the language the user writes in (Russian or German).
-- Code: identifiers (variables, functions, classes, files, routes, database columns, API fields) in English. Everything human-readable in the code is in **German**: comments, docstrings, commit messages, README and docs, log messages, and error messages shown to users.
+- Every chat reply, including the final summary, is in the language the user writes in (Russian or German) - even though these rules, skills and tool output are in English.
+- Deliverables written *for the user* (audits, reports, plans, analyses, summaries) use the language of the request unless the user names another one or the audience is clearly different (e.g. a report for a German client).
+- Code: identifiers (variables, functions, classes, files, routes, database columns, API fields) in English. Everything human-readable that lives *with the code* is in **German**: comments, docstrings, commit messages, README and technical docs, log messages, and error messages shown to users.
 - User-facing UI text follows the product's target market; default German, always through i18n when the product has more than one language. Use correct umlauts (ä, ö, ü, ß), never ae/oe/ue substitutes.
 
 ## Understanding requests

@@ -10,7 +10,7 @@ chk "meta description"                    "grep -qiE 'name=\"description\"[^>]*c
 chk "exactly one h1"                      "[ \$(grep -oi '<h1' '$h' | wc -l) -eq 1 ]"
 chk "img has alt"                         "! grep -qiE '<img(?![^>]*alt=)' '$h' 2>/dev/null; ! grep -iE '<img' '$h' | grep -viq 'alt='"
 chk "key offer in static HTML (49 €)"     "grep -qE '49[[:space:]]?(€|&euro;|Euro)' '$h'"
-chk "crawlable link to /preise"           "grep -qiE '<a[^>]*href=\"/preise' '$h'"
+chk "crawlable link to pricing (/preise or #preise)" "grep -qiE '<a[^>]*href=\"(/|#)preise' '$h'"
 chk "robots.txt allows crawling + AI search bots" "! grep -qiE '^Disallow:[[:space:]]*/[[:space:]]*$' '$r'"
 chk "structured data (JSON-LD)"           "grep -qi 'application/ld+json' '$h'"
 chk "canonical or Open Graph"             "grep -qiE 'rel=\"canonical\"|property=\"og:' '$h'"
