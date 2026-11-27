@@ -33,63 +33,63 @@ const pick = (arr) => arr[Math.floor(rand() * arr.length)];
 
 // tags: which subjects a choice suits (matched against the brief); [] = universal
 const COMPOSITIONS = [
-  { id: "typographic-poster", tags: ["agency", "event", "culture", "manifest", "law", "studio"], desc: "Type only, full width, one huge statement; no hero image." },
-  { id: "full-bleed-photo", tags: ["restaurant", "bar", "wine", "hotel", "travel", "fashion", "real estate", "café", "food"], desc: "Edge-to-edge art-directed photo with type set into it." },
-  { id: "product-first", tags: ["saas", "app", "software", "tool", "devops", "crm", "dashboard", "monitoring"], desc: "The real product UI/object is the hero, large and crisp; copy small beside or below." },
-  { id: "editorial", tags: ["magazine", "blog", "consulting", "law", "health", "school", "nonprofit"], desc: "Centered headline + lead paragraph + wide image band, magazine rhythm." },
-  { id: "asymmetric-collage", tags: ["creative", "kids", "school", "music", "art", "event", "youth"], desc: "Overlapping images, shapes and type on an off-grid composition." },
-  { id: "data-first", tags: ["finance", "analytics", "energy", "climate", "monitoring", "report", "impact"], desc: "One striking number or live chart dominates the first screen." },
-  { id: "index-list", tags: ["agency", "portfolio", "architecture", "studio", "menu", "wine"], desc: "A typographic list/table of contents is the hero (projects, wines, services)." },
-  { id: "manifesto", tags: ["brand", "nonprofit", "startup", "values", "coffee"], desc: "Several sentences of large type, read like a statement; no buttons above the fold except one." },
-  { id: "grid-mosaic", tags: ["portfolio", "shop", "fashion", "photography", "real estate"], desc: "Dense grid of real work/products with varying tile sizes, no frames." },
-  { id: "conversational", tags: ["ai", "support", "insurance", "health", "bank"], desc: "Hero as a dialogue: question, answer, follow-up - the product's tone made visible." },
-  { id: "place-first", tags: ["local", "restaurant", "bar", "workshop", "werkstatt", "garage", "clinic", "school", "city"], desc: "Map, street, building or neighbourhood as the visual anchor." },
-  { id: "horizontal-strip", tags: ["timeline", "history", "process", "event", "festival"], desc: "A horizontal band (timeline, film strip, schedule) carries the story." },
-  { id: "split-with-tool", tags: ["calculator", "configurator", "law", "insurance", "booking"], desc: "Headline beside a working tool. ONLY if a tool is the main promise - this is the config's own overused default." },
+  { id: "typographic-poster", fam: ["refined", "bold", "technical"], tags: ["agency", "event", "culture", "manifest", "law", "studio"], desc: "Type only, full width, one huge statement; no hero image." },
+  { id: "full-bleed-photo", fam: ["refined", "warm"], tags: ["restaurant", "bar", "wine", "hotel", "travel", "fashion", "real estate", "café", "food"], desc: "Edge-to-edge art-directed photo with type set into it." },
+  { id: "product-first", fam: ["technical", "refined"], tags: ["saas", "app", "software", "tool", "devops", "crm", "dashboard", "monitoring"], desc: "The real product UI/object is the hero, large and crisp; copy small beside or below." },
+  { id: "editorial", fam: ["refined", "warm"], tags: ["magazine", "blog", "consulting", "law", "health", "school", "nonprofit"], desc: "Centered headline + lead paragraph + wide image band, magazine rhythm." },
+  { id: "asymmetric-collage", fam: ["bold", "warm"], tags: ["creative", "kids", "school", "music", "art", "event", "youth"], desc: "Overlapping images, shapes and type on an off-grid composition." },
+  { id: "data-first", fam: ["technical", "refined", "bold"], tags: ["finance", "analytics", "energy", "climate", "monitoring", "report", "impact"], desc: "One striking number or live chart dominates the first screen." },
+  { id: "index-list", fam: ["refined", "technical"], tags: ["agency", "portfolio", "architecture", "studio", "menu", "wine"], desc: "A typographic list/table of contents is the hero (projects, wines, services)." },
+  { id: "manifesto", fam: ["refined", "bold", "warm"], tags: ["brand", "nonprofit", "startup", "values", "coffee"], desc: "Several sentences of large type, read like a statement; no buttons above the fold except one." },
+  { id: "grid-mosaic", fam: ["warm", "refined", "bold"], tags: ["portfolio", "shop", "fashion", "photography", "real estate"], desc: "Dense grid of real work/products with varying tile sizes, no frames." },
+  { id: "conversational", fam: ["warm", "technical"], tags: ["ai", "support", "insurance", "health", "bank"], desc: "Hero as a dialogue: question, answer, follow-up - the product's tone made visible." },
+  { id: "place-first", fam: ["warm", "refined", "bold"], tags: ["local", "restaurant", "bar", "workshop", "werkstatt", "garage", "clinic", "school", "city"], desc: "Map, street, building or neighbourhood as the visual anchor." },
+  { id: "horizontal-strip", fam: ["bold", "warm", "technical"], tags: ["timeline", "history", "process", "event", "festival"], desc: "A horizontal band (timeline, film strip, schedule) carries the story." },
+  { id: "split-with-tool", fam: ["technical", "refined", "warm", "bold"], tags: ["calculator", "configurator", "law", "insurance", "booking"], desc: "Headline beside a working tool. ONLY if a tool is the main promise - this is the config's own overused default." },
 ];
 
 const TYPE = [
-  { id: "Fraunces + Inter", mood: "warm editorial", cyr: false, tags: ["food", "wine", "editorial", "culture"] },
-  { id: "Playfair Display + Source Sans 3", mood: "classic contrast", cyr: true, tags: ["law", "hotel", "wine"] },
-  { id: "Cormorant Garamond + Manrope", mood: "quiet luxury", cyr: true, tags: ["fashion", "hotel", "real estate", "wine"] },
-  { id: "EB Garamond + IBM Plex Sans", mood: "scholarly", cyr: true, tags: ["law", "school", "consulting", "publishing"] },
-  { id: "Literata + Inter", mood: "bookish modern", cyr: true, tags: ["blog", "education", "nonprofit"] },
-  { id: "Spectral + Commissioner", mood: "refined calm", cyr: true, tags: ["health", "consulting"] },
-  { id: "PT Serif + PT Sans", mood: "solid civic", cyr: true, tags: ["public", "nonprofit", "law"] },
-  { id: "Prata + Golos Text", mood: "elegant", cyr: true, tags: ["beauty", "fashion", "wine"] },
-  { id: "Instrument Serif + Geist", mood: "contemporary editorial", cyr: "check", tags: ["agency", "saas", "studio"] },
-  { id: "Inter Display (one family)", mood: "Swiss precise", cyr: true, tags: ["saas", "finance", "b2b"] },
-  { id: "Onest (one family)", mood: "friendly neutral", cyr: true, tags: ["app", "service", "local"] },
-  { id: "Golos Text + JetBrains Mono", mood: "technical clear", cyr: true, tags: ["devops", "saas", "monitoring", "developer"] },
-  { id: "IBM Plex Sans + IBM Plex Mono", mood: "engineering", cyr: true, tags: ["devops", "industrial", "monitoring", "data"] },
-  { id: "Manrope + Space Mono", mood: "tech friendly", cyr: "check", tags: ["startup", "app"] },
-  { id: "Unbounded + Onest", mood: "bold playful", cyr: true, tags: ["kids", "event", "youth", "music"] },
-  { id: "Rubik + Rubik Mono One", mood: "chunky fun", cyr: true, tags: ["kids", "games", "school"] },
-  { id: "Jost (geometric)", mood: "Bauhaus", cyr: true, tags: ["kids", "design", "architecture", "school"] },
-  { id: "Oswald + Fira Sans", mood: "condensed industrial", cyr: true, tags: ["workshop", "garage", "werkstatt", "sport", "logistics"] },
-  { id: "Russo One + Exo 2", mood: "motor/sport", cyr: true, tags: ["garage", "auto", "sport"] },
-  { id: "Archivo Black + Archivo", mood: "brutalist loud", cyr: "check", tags: ["agency", "event", "music"] },
-  { id: "Bricolage Grotesque + Inter", mood: "quirky modern", cyr: "check", tags: ["startup", "creative", "food"] },
-  { id: "Syne + Manrope", mood: "artsy", cyr: "check", tags: ["art", "gallery", "studio"] },
-  { id: "Yeseva One + Lora", mood: "romantic", cyr: true, tags: ["wedding", "flowers", "bakery", "wine"] },
-  { id: "Alegreya + Alegreya Sans", mood: "literary humanist", cyr: true, tags: ["culture", "bookshop", "school"] },
-  { id: "Nunito + Nunito Sans", mood: "soft friendly", cyr: true, tags: ["health", "family", "kids"] },
-  { id: "Ubuntu + Ubuntu Mono", mood: "open-source", cyr: true, tags: ["developer", "community"] },
-  { id: "Comfortaa + Raleway", mood: "light rounded", cyr: true, tags: ["wellness", "spa"] },
-  { id: "Montserrat Alternates + Montserrat", mood: "retro geometric", cyr: true, tags: ["bar", "café", "event"] },
+  { id: "Fraunces + Inter", mood: "warm editorial", fam: "warm", cyr: false, tags: ["food", "wine", "editorial", "culture"] },
+  { id: "Playfair Display + Source Sans 3", mood: "classic contrast", fam: "refined", cyr: true, tags: ["law", "hotel", "wine"] },
+  { id: "Cormorant Garamond + Manrope", mood: "quiet luxury", fam: "refined", cyr: true, tags: ["fashion", "hotel", "real estate", "wine"] },
+  { id: "EB Garamond + IBM Plex Sans", mood: "scholarly", fam: "refined", cyr: true, tags: ["law", "school", "consulting", "publishing"] },
+  { id: "Literata + Inter", mood: "bookish modern", fam: "warm", cyr: true, tags: ["blog", "education", "nonprofit"] },
+  { id: "Spectral + Commissioner", mood: "refined calm", fam: "refined", cyr: true, tags: ["health", "consulting"] },
+  { id: "PT Serif + PT Sans", mood: "solid civic", fam: "refined", cyr: true, tags: ["public", "nonprofit", "law"] },
+  { id: "Prata + Golos Text", mood: "elegant", fam: "refined", cyr: true, tags: ["beauty", "fashion", "wine"] },
+  { id: "Instrument Serif + Geist", mood: "contemporary editorial", fam: "refined", cyr: "check", tags: ["agency", "saas", "studio"] },
+  { id: "Inter Display (one family)", mood: "Swiss precise", fam: "technical", cyr: true, tags: ["saas", "finance", "b2b"] },
+  { id: "Onest (one family)", mood: "friendly neutral", fam: "technical", cyr: true, tags: ["app", "service", "local"] },
+  { id: "Golos Text + JetBrains Mono", mood: "technical clear", fam: "technical", cyr: true, tags: ["devops", "saas", "monitoring", "developer"] },
+  { id: "IBM Plex Sans + IBM Plex Mono", mood: "engineering", fam: "technical", cyr: true, tags: ["devops", "industrial", "monitoring", "data"] },
+  { id: "Manrope + Space Mono", mood: "tech friendly", fam: "technical", cyr: "check", tags: ["startup", "app"] },
+  { id: "Unbounded + Onest", mood: "bold playful", fam: "bold", cyr: true, tags: ["kids", "event", "youth", "music"] },
+  { id: "Rubik + Rubik Mono One", mood: "chunky fun", fam: "bold", cyr: true, tags: ["kids", "games", "school"] },
+  { id: "Jost (geometric)", mood: "Bauhaus", fam: "bold", cyr: true, tags: ["kids", "design", "architecture", "school"] },
+  { id: "Oswald + Fira Sans", mood: "condensed industrial", fam: "bold", cyr: true, tags: ["workshop", "garage", "werkstatt", "sport", "logistics"] },
+  { id: "Russo One + Exo 2", mood: "motor/sport", fam: "bold", cyr: true, tags: ["garage", "auto", "sport"] },
+  { id: "Archivo Black + Archivo", mood: "brutalist loud", fam: "bold", cyr: "check", tags: ["agency", "event", "music"] },
+  { id: "Bricolage Grotesque + Inter", mood: "quirky modern", fam: "warm", cyr: "check", tags: ["startup", "creative", "food"] },
+  { id: "Syne + Manrope", mood: "artsy", fam: "bold", cyr: "check", tags: ["art", "gallery", "studio"] },
+  { id: "Yeseva One + Lora", mood: "romantic", fam: "refined", cyr: true, tags: ["wedding", "flowers", "bakery", "wine"] },
+  { id: "Alegreya + Alegreya Sans", mood: "literary humanist", fam: "warm", cyr: true, tags: ["culture", "bookshop", "school"] },
+  { id: "Nunito + Nunito Sans", mood: "soft friendly", fam: "warm", cyr: true, tags: ["health", "family", "kids"] },
+  { id: "Ubuntu + Ubuntu Mono", mood: "open-source", fam: "technical", cyr: true, tags: ["developer", "community"] },
+  { id: "Comfortaa + Raleway", mood: "light rounded", fam: "warm", cyr: true, tags: ["wellness", "spa"] },
+  { id: "Montserrat Alternates + Montserrat", mood: "retro geometric", fam: "warm", cyr: true, tags: ["bar", "café", "event"] },
 ];
 
 const PALETTES = [
-  { id: "ink + one signal", desc: "near-black on off-white, a single saturated signal color for action and data" },
-  { id: "material-derived", desc: "colors sampled from the subject's real materials (wood, wine, steel, paper, fabric)" },
-  { id: "deep color field", desc: "one saturated background color owns whole sections, text in ink or white" },
-  { id: "duotone", desc: "two strong hues only (plus neutrals), used for images and type alike" },
-  { id: "earthy naturals", desc: "clay, moss, sand, bark - muted but warm, high text contrast" },
-  { id: "primary triad", desc: "red, yellow, blue at controlled saturation with black and white (Bauhaus)" },
-  { id: "pastel + strong ink", desc: "soft pastel grounds, very dark ink type, no grey text" },
-  { id: "photographic B/W + one color", desc: "black-and-white imagery, one color for interaction only" },
-  { id: "cool technical grey", desc: "blue-greys with one precise accent; tabular, calm" },
-  { id: "night mode native", desc: "designed dark-first with warm off-white type and one muted accent (no neon)" },
+  { id: "ink + one signal", fam: ["refined", "technical", "bold"], desc: "near-black on off-white, a single saturated signal color for action and data" },
+  { id: "material-derived", fam: ["warm", "refined"], desc: "colors sampled from the subject's real materials (wood, wine, steel, paper, fabric)" },
+  { id: "deep color field", fam: ["bold", "warm"], desc: "one saturated background color owns whole sections, text in ink or white" },
+  { id: "duotone", fam: ["bold", "technical"], desc: "two strong hues only (plus neutrals), used for images and type alike" },
+  { id: "earthy naturals", fam: ["warm", "refined"], desc: "clay, moss, sand, bark - muted but warm, high text contrast" },
+  { id: "primary triad", fam: ["bold"], desc: "red, yellow, blue at controlled saturation with black and white (Bauhaus)" },
+  { id: "pastel + strong ink", fam: ["warm", "bold"], desc: "soft pastel grounds, very dark ink type, no grey text" },
+  { id: "photographic B/W + one color", fam: ["refined", "technical"], desc: "black-and-white imagery, one color for interaction only" },
+  { id: "cool technical grey", fam: ["technical"], desc: "blue-greys with one precise accent; tabular, calm" },
+  { id: "night mode native", fam: ["technical", "refined", "warm"], desc: "designed dark-first with warm off-white type and one muted accent (no neon)" },
 ];
 
 const SIGNATURES = [
@@ -119,13 +119,15 @@ const typeOk = (t) => !needCyr || t.cyr === true;
 
 function concept(mode) {
   let comps = COMPOSITIONS.filter((c) => !usedComp.has(c.id) && (c.id !== "split-with-tool" || /rechner|calculator|konfigur|booking|tool|калькул/.test(brief)));
-  let types = TYPE.filter((t) => !usedType.has(t.id) && typeOk(t));
-  if (mode === "fit") {
-    const fc = comps.filter(fits); if (fc.length) comps = fc;
-    const ft = types.filter(fits); if (ft.length) types = ft;
-  }
-  const pals = PALETTES.filter((p) => !usedPal.has(p.id));
-  return { mode, composition: pick(comps.length ? comps : COMPOSITIONS), type: pick(types.length ? types : TYPE.filter(typeOk)), palette: pick(pals.length ? pals : PALETTES), signature: pick(SIGNATURES) };
+  if (mode === "fit") { const fc = comps.filter(fits); if (fc.length) comps = fc; }
+  const composition = pick(comps.length ? comps : COMPOSITIONS);
+  // Taste: one mood family for the whole concept, so type, palette and layout agree.
+  let types = TYPE.filter((t) => !usedType.has(t.id) && typeOk(t) && composition.fam.includes(t.fam));
+  if (mode === "fit") { const ft = types.filter(fits); if (ft.length) types = ft; }
+  const type = pick(types.length ? types : TYPE.filter((t) => typeOk(t) && composition.fam.includes(t.fam)).concat(TYPE.filter(typeOk)).slice(0, 40));
+  let pals = PALETTES.filter((p) => !usedPal.has(p.id) && p.fam.includes(type.fam));
+  if (!pals.length) pals = PALETTES.filter((p) => p.fam.includes(type.fam));
+  return { mode, composition, type, palette: pick(pals), signature: pick(SIGNATURES), family: type.fam };
 }
 
 const concepts = [concept("fit"), concept("fit"), concept("wildcard")];
@@ -138,7 +140,7 @@ for (let i = 1; i < concepts.length; i++) {
 console.log(`Brief: ${brief || "(none)"}${needCyr ? "  [Cyrillic needed]" : ""}`);
 console.log(`Recently used (avoided): ${[...usedComp].filter(Boolean).join(", ") || "-"}\n`);
 concepts.forEach((c, i) => {
-  console.log(`Concept ${String.fromCharCode(65 + i)} (${c.mode})`);
+  console.log(`Concept ${String.fromCharCode(65 + i)} (${c.mode}, mood: ${c.family})`);
   console.log(`  composition: ${c.composition.id} - ${c.composition.desc}`);
   console.log(`  type:        ${c.type.id} (${c.type.mood}${c.type.cyr === "check" ? ", check Cyrillic" : ""})`);
   console.log(`  palette:     ${c.palette.id} - ${c.palette.desc}`);
