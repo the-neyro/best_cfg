@@ -1,7 +1,7 @@
 ---
 name: frontend-engineering
-description: Engineering quality for web frontends - React/Next.js performance (waterfalls, bundle size, re-renders, server components), interface details that separate polished apps from average ones (forms, focus, keyboard, touch, animation, typography, URL state, i18n), and browser testing. Use whenever writing or reviewing React, Next.js or other frontend code, together with the `design` skill for visuals.
-when_to_use: 'Triggers: React, Next.js, Vue, Svelte, frontend, фронтенд, component, form, форма, Formular, performance, slow page, re-render, hydration, bundle, Playwright, e2e'
+description: Engineering quality for web and mobile frontends - React/Next.js performance (waterfalls, bundle size, re-renders, server components), interface details that separate polished apps from average ones (forms, focus, keyboard, touch, animation, typography, URL state, i18n), and browser testing. Also covers PWAs and React Native/Expo, i18n for DE/RU/EN and transactional e-mail templates. Use whenever writing or reviewing React, Next.js, mobile or other frontend code, together with the `design` skill for visuals.
+when_to_use: 'Triggers: PWA, mobile app, мобильное приложение, React Native, Expo, i18n, Übersetzung, перевод интерфейса, email template, React, Vue, Svelte, frontend, фронтенд, component, form, форма, Formular, performance, slow page, re-render, hydration, bundle, Playwright, e2e'
 ---
 
 # Frontend engineering
@@ -20,6 +20,10 @@ Details and patterns: `references/react-performance.md`.
 
 ## Interface details
 Polished apps get hundreds of small things right: forms that never lose input, visible keyboard focus, URL-driven state, correct typography, interruptible animation, touch-friendly targets. Checklist: `references/interface-guidelines.md`.
+
+## More references
+- `references/mobile-pwa.md` - PWA vs React Native/Expo, offline, mobile UX, store release
+- `references/i18n-email.md` - DE/RU/EN i18n (Russian plurals, formats, fonts) and transactional e-mail templates
 
 ## Testing in the browser
 - Playwright with role-based locators (`getByRole`, `getByLabel`) and web-first assertions; never fixed sleeps.

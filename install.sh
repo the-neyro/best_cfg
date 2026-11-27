@@ -71,7 +71,8 @@ merge_settings() { # merge our settings.json into an existing one (lists unioned
     .[0] as $old | .[1] as $new
     | ($old * $new)
     | .permissions.allow = (((($old.permissions.allow) // []) + (($new.permissions.allow) // [])) | unique)
-    | .permissions.ask   = (((($old.permissions.ask)   // []) + (($new.permissions.ask)   // [])) | unique)
+    | .permissions.ask   = (((($old.permissions.ask)   // []) + (($new.permissions.ask)   // [])) | unique
+        | map(select(IN("Bash(npm install *)","Bash(pnpm add *)","Bash(yarn add *)","Bash(bun add *)","Bash(pip install *)","Bash(docker *)") | not)))
     | .permissions.deny  = (((($old.permissions.deny)  // []) + (($new.permissions.deny)  // [])) | unique)
     | .hooks = (reduce ((($old.hooks // {}) | keys) + (($new.hooks // {}) | keys) | unique)[] as $ev
         ({}; .[$ev] = ((($old.hooks[$ev]) // []) + (($new.hooks[$ev]) // []) | unique_by(tojson))))

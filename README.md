@@ -11,7 +11,7 @@ git clone <dieses-repo> ~/best_cfg && cd ~/best_cfg
 ./install.sh                # installiert für alle erkannten Tools (Backup unter ~/.ai-config-backup/)
 ./install.sh --project ~/code/meine-app   # Projektvorlage (überschreibt nichts)
 ```
-Voraussetzungen: `bash`, `jq`, `python3`, `node` (Windows: WSL oder Git Bash). Danach in Claude Code: `/hooks`, `/agents`, `/context` prüfen, MCP-Server aus [docs/mcp.md](docs/mcp.md) hinzufügen.
+Voraussetzungen: `bash`, `jq` (>= 1.6), `python3`, `node` (Windows: WSL oder Git Bash). Danach in Claude Code: `/hooks`, `/agents`, `/context` prüfen, MCP-Server aus [docs/mcp.md](docs/mcp.md) hinzufügen.
 
 ## Inhalt
 ```
@@ -30,9 +30,12 @@ skills/                 Agent Skills (offener Standard) – laufen in Claude Cod
   human-writing/        Texte ohne AI-Floskeln (DE/RU/EN), Liste der AI-Tells
   fact-check/           Jede Zahl, jedes Datum, jede Behauptung verifizieren
   orchestrate/          Multi-Agent-Arbeit: Aufwand skalieren, Briefing-Vorlage, Parallelisierung, Ledger, Rulings
-  frontend-engineering/ React/Next-Performance (Waterfalls, Bundle, Re-Renders) + Interface-Details (Formulare, Fokus, URL-State)
+  frontend-engineering/ React/Next-Performance, Interface-Details, PWA/React Native, i18n DE/RU/EN, E-Mail-Templates
   debugging/            Systematisches Debugging: Ursache zuerst, eine Hypothese, failing Test, Stopp nach 3 Fehlversuchen
   verification/         Beweis vor Behauptung: Claim -> Evidence-Tabelle
+  payments/             Stripe, Abos, Webhooks idempotent, MwSt./Rechnungen DE/EU, Fehlerpfade
+  devops/               Deploy, CI/CD, Docker, Backups mit Restore-Test, Monitoring, EU-Hosting
+  ai-features/          LLM-Funktionen in Apps: Evals, Structured Outputs, Prompt-Injection-Schutz, Kosten
   tdd/ spec/ ship/ web-quality/
 claude/                 Nur Claude Code
   CLAUDE.md             importiert AGENTS.md + Orchestrator-Regeln
@@ -56,6 +59,9 @@ Die Hauptsession ist der **Orchestrator**: kleine Aufgaben selbst, große als Pl
 | protect-files | Keine Edits an `.env`, Lockfiles, Schlüsseln, `.git/` |
 | format-on-edit | Formatiert mit dem Formatter des Projekts (Biome/Prettier/Ruff/gofmt/rustfmt) |
 | verify-on-stop (Projekt) | Typecheck + Lint, bevor Claude „fertig“ sagt |
+
+## Getestet (A/B gegen Claude ohne Konfig)
+8 Aufgaben mit gleichem Modell (Opus 5.5): Login-Server, Landingpage, Bericht, Dashboard, ERP-Rechnungsmodul, SEO/GEO-Audit, Über-uns-Text, kleine Umbenennung. Die Konfig gewinnt oder zieht in allen gleich - deutlich bei Design (0 statt 5-15 AI-Slop-Muster), Sicherheit, Testabdeckung und Ehrlichkeit (keine erfundenen Fakten). Preis: große Aufgaben dauern 4-10x länger, weil geprüft, getestet und reviewt wird. Details: [eval/RESULTS-2026-11-27.md](eval/RESULTS-2026-11-27.md), wiederholbar mit `bash eval/run.sh all`.
 
 ## Konventionen
 - Antworten in der Sprache des Nutzers (Russisch/Deutsch), kurz, mit Humor.
