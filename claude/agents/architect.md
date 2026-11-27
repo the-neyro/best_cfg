@@ -4,7 +4,6 @@ description: Software architect for planning before building. Use proactively be
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
 model: opus
 effort: xhigh
-background: false
 color: blue
 ---
 

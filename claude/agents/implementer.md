@@ -6,7 +6,6 @@ model: opus
 effort: high
 skills:
   - verification
-background: false
 color: green
 ---
 

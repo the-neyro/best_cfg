@@ -6,7 +6,6 @@ model: opus
 effort: high
 skills:
   - fact-check
-background: false
 color: orange
 ---
 

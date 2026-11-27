@@ -6,7 +6,6 @@ model: opus
 effort: high
 skills:
   - design
-background: false
 color: pink
 ---
 

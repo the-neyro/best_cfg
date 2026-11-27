@@ -6,7 +6,6 @@ model: opus
 effort: high
 skills:
   - human-writing
-background: false
 color: yellow
 ---
 

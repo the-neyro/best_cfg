@@ -4,7 +4,6 @@ description: Independent reviewer for a diff or a set of changed files. Use proa
 tools: Read, Grep, Glob, Bash
 model: opus
 effort: high
-background: false
 color: purple
 ---
 

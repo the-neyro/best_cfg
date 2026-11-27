@@ -49,7 +49,7 @@ OUTPUT: the exact format to return (e.g. "files changed + commands run with resu
 - Keep the count small: 2-4 parallel agents per phase is usually optimal; more creates merge pain and token burn.
 
 ## 5. Integrate parallel work (mandatory when worktrees were used)
-1. Wait for every implementer to finish - do not end your turn or report while subagents whose results you need are still running (in headless/automated runs the session ends with your turn and their work is lost).
+1. Launch the architect, implementers and reviewers whose results you need with `run_in_background: false` (Claude Code Agent tool). Put parallel ones in the same message - they still run concurrently and you get all results back. Never end your turn or report while subagents you depend on are running: in headless/automated runs the session ends with your turn and their work is lost.
 2. For each implementer: check its report names a branch and commit; inspect `git log` / `git diff` of that branch.
 3. Merge branches into the main branch one at a time (`git merge --no-ff <branch>`), resolve conflicts, run typecheck + tests after each merge.
 4. Clean up: `git worktree remove <path>` and `git branch -d <branch>` for every merged worktree; `git worktree list` must show only the main checkout at the end.
