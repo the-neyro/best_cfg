@@ -53,13 +53,15 @@ run_one() { # variant task
   if [ "$rc" -ne 0 ] || [ "$(wc -c < "$E/$v-$t.log")" -lt 400 ]; then
     grep -qiE 'hit your [^ ]* ?limit|[0-9]-hour limit|usage limit|limit reached|limit will reset|rate_limit_error|overloaded_error|(^|[^0-9])429([^0-9]|$)|credit balance' "$E/$v-$t.log" && lim=" LIMIT_SIGNAL"
   fi
+  [ -n "$lim" ] && touch "$E/.limit-$t"
   echo "done $v-$t exit=$rc seconds=$((end-start)) agents=[${agents}]$lim" >> "$E/status.txt"
 }
 
 tasks="$*"; [ -z "$tasks" ] || [ "$tasks" = all ] && tasks="$TASKS_ALL"
 for t in $tasks; do
   [ -n "${P[$t]}" ] || { echo "unknown task: $t" >&2; continue; }
+  rm -f "$E/.limit-$t"
   for v in $VARIANTS; do run_one "$v" "$t" & done; wait
-  if grep -E "^done (cfg|base)-$t " "$E/status.txt" | tail -2 | grep -q "LIMIT_SIGNAL"; then echo "LIMIT_STOP after $t" >> "$E/status.txt"; break; fi
+  if [ -e "$E/.limit-$t" ]; then echo "LIMIT_STOP after $t" >> "$E/status.txt"; break; fi
 done
 echo "BATCH_DONE $tasks" >> "$E/status.txt"
