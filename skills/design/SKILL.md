@@ -57,6 +57,16 @@ Code quality and interaction details: follow the `frontend-engineering` skill (p
 2. Render and screenshot with the `visual-qa` skill (375 / 768 / 1440, light + dark). Look at every screenshot and ask: "Would a designer at a top studio ship this? Does anything look like a template?" Fix and re-shoot.
 3. For important screens, get an independent critique (Claude Code: `ui-reviewer` subagent) and fix the top issues.
 
+## Taste - what makes it stylish, not just different
+Variety without taste is noise. Every concept must pass these:
+- **Coherence**: type, color, layout, imagery and motion all express the same idea. If a choice cannot be explained by the subject or the concept, remove it.
+- **Restraint**: max two typefaces (often one), one accent color, one signature moment. Color roughly 60 % ground / 30 % ink and structure / 10 % accent.
+- **Proportion**: a modular type scale with real contrast (display 4-8x body), a consistent spacing scale, generous outer margins, a visible grid that holds across sections.
+- **Hierarchy through contrast, not decoration**: big vs small, dense vs empty, bold vs light - never extra boxes, badges or icons to create importance.
+- **Imagery**: real and art-directed (same light, crop and color treatment), or none. No stock clichés (handshakes, people pointing at laptops, smiling headsets).
+- **Craft details**: tight tracking on display type, correct quotes and dashes per language, hanging punctuation in large quotes, tabular numbers, optical alignment, no widows in headlines.
+- **Edit**: before finishing remove one more element. Ask: "Would a top studio put its name on this, and is it unmistakably *this* client?"
+
 ## Quality floor
 - WCAG 2.2 AA: 4.5:1 text, 3:1 large text and UI boundaries; visible `focus-visible`; full keyboard use; semantic HTML; labels and `alt` text.
 - `prefers-reduced-motion` respected; responsive from 360px with no horizontal scroll; touch targets >= 44px.
