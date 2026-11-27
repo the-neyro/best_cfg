@@ -137,7 +137,10 @@ for (let i = 1; i < concepts.length; i++) {
   for (let tries = 0; tries < 40 && clash(); tries++) concepts[i] = concept(tries < 20 ? concepts[i].mode : "wildcard");
 }
 
+const BUSINESS = [["software / tech", /saas|software|app|tool|devops|monitor|api|platform|crm|erp|dashboard|(^|[^a-z])ai([^a-z]|$)|tech/], ["gaming", /game|gaming|esport/], ["place", /bar|restaurant|café|cafe|hotel|shop|store|practice|praxis|clinic|studio|werkstatt|garage|salon|school|gym|wine/], ["product", /product|device|furniture|fashion|bike|cosmetic/], ["service", /law|kanzlei|consult|agency|insurance|tax|account|service|repair/]];
+const business = (BUSINESS.find(([, re]) => re.test(brief)) || ["service (default)"])[0];
 console.log(`Brief: ${brief || "(none)"}${needCyr ? "  [Cyrillic needed]" : ""}`);
+console.log(`Business type: ${business}${/software|gaming/.test(business) ? " - richer motion / WebGL allowed" : " - no WebGL/shader effects"}${business === "place" ? "; real photos of the place are mandatory" : ""}`);
 console.log(`Recently used (avoided): ${[...usedComp].filter(Boolean).join(", ") || "-"}\n`);
 concepts.forEach((c, i) => {
   console.log(`Concept ${String.fromCharCode(65 + i)} (${c.mode}, mood: ${c.family})`);

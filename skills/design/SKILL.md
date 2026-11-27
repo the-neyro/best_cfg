@@ -21,7 +21,9 @@ Generic AI UI has a recognizable fingerprint: a grid of rounded cards, each with
 ## Process
 
 ### 1. Understand the subject
-In 3-5 lines: what the product is, who uses it, the single most important action, and 3 adjectives for the feel. Look at existing tokens, fonts and brand assets in the repo and reuse them. If the brief is vague, derive from the domain - a law firm, a logistics tool and a fashion label must not share a look.
+Classify the business first - it decides what is allowed: **software / tech / gaming** (product UI, data and richer motion; WebGL or shader effects only here), **product** (the object itself, photographed or rendered), **service** (people, process, proof), **place** (restaurant, bar, shop, practice, workshop - real photos of the place are mandatory, no abstract graphics as substitute).
+
+Then, in 3-5 lines: what the product is, who uses it, the single most important action, and 3 adjectives for the feel. Look at existing tokens, fonts and brand assets in the repo and reuse them. If the brief is vague, derive from the domain - a law firm, a logistics tool and a fashion label must not share a look.
 
 ### 2. Diverge, then choose a direction (show the plan before building)
 Models collapse onto the same 2-3 looks. Break that deliberately:
@@ -44,6 +46,8 @@ Create tokens before components (CSS variables / Tailwind v4 `@theme`): colors, 
 ### 4. Build
 - Use the project's stack. New React projects: Tailwind CSS v4, Radix/shadcn primitives **restyled**, Motion for animation, self-hosted variable fonts. Icons only if needed (see ban 5).
 - Real content: realistic copy written for this product and audience, in the product's language (German by default), real-looking data. No lorem ipsum, "John Doe", "Acme", "Feature 1".
+- Copy on the page: the `h1` names the category and the audience in plain words; buttons are verb + object ("Probestunde buchen"); at most two actions in the first screen; roughly 60-80 words per screen outside UI mock-ups - more text goes below the fold or into dedicated pages.
+- Layout discipline: equal left and right content edges across all sections; on desktop each section is about one or two screens tall - no endless half-empty sections, no cramped ones.
 - Every state designed: hover, `focus-visible`, active, disabled, loading (skeletons matching layout), empty (with a next action), error (what happened + how to fix).
 - Images with fixed aspect ratios and no layout shift.
 

@@ -32,6 +32,8 @@ If the design matches an item here, change it unless the brief explicitly asks f
 - [ ] Muted text failing contrast; text over images without enough contrast.
 - [ ] Layout shift on load; horizontal scroll on mobile.
 - [ ] Fade-in-on-scroll on every block; bouncing elements; animations > 400ms on interactions.
+- [ ] Parallax text, scroll-jacking, carousels / auto-rotating tabs, 3D-tilt cards.
+- [ ] Stock photos presented as the client's own place or team; invented reviews or customer counts.
 
 ## The fix pattern
 For each hit ask: "What would this look like if it were designed specifically for *this* product and *these* users?" Replace the default with a decision from the chosen direction and the product's own world: typography, grid, color fields, real imagery, real data.
