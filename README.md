@@ -36,11 +36,12 @@ skills/                 Agent Skills (offener Standard) – laufen in Claude Cod
   payments/             Stripe, Abos, Webhooks idempotent, MwSt./Rechnungen DE/EU, Fehlerpfade
   devops/               Deploy, CI/CD, Docker, Backups mit Restore-Test, Monitoring, EU-Hosting
   ai-features/          LLM-Funktionen in Apps: Evals, Structured Outputs, Prompt-Injection-Schutz, Kosten
+  learn/                /learn: Korrektur -> dauerhafte Projektregel (AGENTS.md, Rule oder Hook-Vorschlag)
   tdd/ spec/ ship/ web-quality/
 claude/                 Nur Claude Code
   CLAUDE.md             importiert AGENTS.md + Orchestrator-Regeln
   settings.json         Opus 5.5 + effort high, Permissions, Hooks, Statuszeile
-  hooks/                skill-router, guard-bash, secret-scan, protect-files, format-on-edit, statusline
+  hooks/                skill-router, guard-bash, secret-scan, protect-files, format-on-edit, notify, statusline
   agents/               architect, implementer, test-writer, debugger, code-reviewer, security-auditor,
                         ui-reviewer, researcher, editor, fact-checker
 project-template/       AGENTS.md-Vorlage, CLAUDE.md, Stop-Hook (Typecheck+Lint), Frontend-Regeln, .mcp.json
@@ -57,6 +58,7 @@ Die Hauptsession ist der **Orchestrator**: kleine Aufgaben selbst, große als Pl
 | guard-bash | Blockt `rm -rf /`, `curl … \| sh`, Force-Push auf main, `.env` lesen, `chmod 777`; fragt bei `reset --hard`, `--no-verify`, `DROP TABLE`, `publish`, `terraform apply` |
 | secret-scan | Blockt Commits mit API-Keys, privaten Schlüsseln, DB-Passwörtern, `.env`-Dateien (+ gitleaks, falls installiert) |
 | protect-files | Keine Edits an `.env`, Lockfiles, Schlüsseln, `.git/` |
+| notify | Desktop-Benachrichtigung (macOS/Linux/WSL), wenn Claude auf dich wartet |
 | format-on-edit | Formatiert mit dem Formatter des Projekts (Biome/Prettier/Ruff/gofmt/rustfmt) |
 | verify-on-stop (Projekt) | Typecheck + Lint, bevor Claude „fertig“ sagt |
 

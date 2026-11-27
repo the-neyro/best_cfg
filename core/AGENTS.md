@@ -15,7 +15,7 @@ The user often dictates by voice: long, unstructured, mixed Russian/German, with
 - Requests that come in several messages belong together; keep the whole picture.
 
 ## Skills (load the matching one before starting)
-`design` (any UI), `frontend-engineering` (React/Next code quality and performance), `dashboard-design`, `landing-page`, `visual-qa`, `debugging` (any bug), `verification` (before every "done"), `secure-coding`, `business-apps` (ERP/CRM/back office), `seo-geo`, `automation`, `payments` (Stripe, subscriptions, VAT), `devops` (deploy, CI, backups, monitoring), `ai-features` (LLM features in apps), `reports`, `human-writing`, `fact-check`, `tdd`, `orchestrate`, `web-quality`, `spec`, `ship`.
+`design` (any UI), `frontend-engineering` (React/Next code quality and performance), `dashboard-design`, `landing-page`, `visual-qa`, `debugging` (any bug), `verification` (before every "done"), `secure-coding`, `business-apps` (ERP/CRM/back office), `seo-geo`, `automation`, `payments` (Stripe, subscriptions, VAT), `devops` (deploy, CI, backups, monitoring), `ai-features` (LLM features in apps), `reports`, `human-writing`, `fact-check`, `tdd`, `orchestrate`, `web-quality`, `spec`, `ship`, `learn` (turn a correction into a lasting project rule).
 
 ## How to work
 - Read before you write: open the files you will change and the code that calls them. Match the repo's existing style, libraries and patterns.

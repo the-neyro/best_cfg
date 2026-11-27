@@ -22,7 +22,7 @@ Detect commands from CLAUDE.md / package.json scripts / Makefile / pyproject / C
 Fix failures caused by this change. If a failure is pre-existing and unrelated, report it instead of masking it.
 
 ## 3. Review
-- Delegate the diff to the `code-reviewer` and `security-auditor` subagents (in parallel). Without subagents, run their checklists yourself, starting with the `secure-coding` skill.
+- Delegate the diff to the `code-reviewer` subagent; add `security-auditor` in parallel when the diff touches auth, payments, personal data, uploads, external input, money calculations, migrations, or before a release. Without subagents, run their checklists yourself (`secure-coding` skill for the risk areas).
 - Run the secret scan on the staged diff (`gitleaks git --staged` if installed) and the ecosystem audit (`npm audit --omit=dev --audit-level=high`, `pip-audit`, ...).
 - For UI changes: `slop-scan` from the `design` skill and the `visual-qa` skill.
 - Fix Critical and Important findings that are real; explain any you reject.

@@ -12,7 +12,7 @@ You are the lead. Subagents bring parallelism, isolation of noisy work and an un
 | Task | Approach |
 |---|---|
 | Small fix, one file, clear cause | Do it yourself. No subagents. |
-| Normal feature (one area) | Do it yourself; then `code-reviewer` (+ `security-auditor` if it touches users/data/money). |
+| Normal feature (one area) | Do it yourself; then one `code-reviewer` pass. Add `security-auditor` only for risk areas (auth, payments, personal data, uploads, money, migrations). |
 | Feature across areas / new module | `architect` plan -> implement (parallel `implementer`s for independent packages) -> `test-writer` -> reviewers in parallel. |
 | New app / large system (ERP, CRM, platform) | `/spec` with the user first -> `architect` -> phased build, 2-4 parallel implementers per phase -> full review round per phase. |
 | Research / audit across many sources | 2-5 parallel `researcher`s with disjoint scopes -> you synthesize. |
@@ -45,7 +45,7 @@ OUTPUT: the exact format to return (e.g. "files changed + commands run with resu
 ## 4. Parallel work rules
 - Parallelize only truly independent packages with **disjoint files**. Shared files (schema, routes index, design tokens) are done first by one agent or by you.
 - Run parallel implementers with **worktree isolation** (Agent tool `isolation: "worktree"`), then merge their branches one at a time, running tests after each merge.
-- Launch independent agents in the same message so they run concurrently; reviewers (`code-reviewer`, `security-auditor`, `ui-reviewer`) always in parallel.
+- Launch independent agents in the same message so they run concurrently; when several reviewers are warranted by risk, run them in parallel.
 - Keep the count small: 2-4 parallel agents per phase is usually optimal; more creates merge pain and token burn.
 
 ## 5. Trust, but verify

@@ -20,7 +20,13 @@ P[dashboard]='Сделай дашборд продаж для интернет-�
 P[erp]='Сделай модуль счетов (Rechnungen) для нашей ERP: Node.js + TypeScript + SQLite (better-sqlite3). Создание счёта с позициями, НДС 19 % и 7 %, сквозная нумерация RE-2026-00001, сторно (Storno/Gutschrift) вместо удаления, расчёт сумм. Сервисный слой + тесты (vitest). Должно работать.'
 P[seo]='Вот наш сайт (index.html, app.js, robots.txt). Проведи SEO и GEO аудит (чтобы нас находили Google и ИИ-поисковики вроде ChatGPT и Perplexity), запиши результат в audit.md с приоритетами и сразу исправь файлы.'
 P[text]='Напиши текст для страницы «О нас» на русском для немецкой IT-компании WerkstattCRM: мы делаем CRM для автосервисов (запись клиентов, заказ-наряды, счета), команда 12 человек из Мюнхена, работаем с 2019 года, 340 автосервисов-клиентов. Человеческим языком, файл about.md.'
-TASKS_ALL="landing report auth dashboard erp seo text"
+P[crm]='Сделай мини-CRM для автосервиса: клиенты, автомобили, заказ-наряды со статусами (neu → in Arbeit → fertig → abgeholt), поиск по клиенту и госномеру. REST API на Node.js + TypeScript + SQLite, веб-интерфейс на React + Vite, тесты. Интерфейс на немецком. Должно запускаться одной командой.'
+P[design-kids]='Сделай лендинг для детской школы программирования «CodeKids» в Гамбурге (дети 8–14 лет, курсы по Scratch, Python и роботам). Один файл index.html, без внешних CDN. Тексты на немецком.'
+P[design-wine]='Сделай лендинг для винного бара «Rebstock» в Берлине-Кройцберге (натуральные вина, маленькая кухня, вечера с винодельнями). Один файл index.html, без внешних CDN. Тексты на немецком.'
+P[design-saas]='Сделай лендинг для B2B-сервиса мониторинга серверов «Pulsewatch» (аптайм, алерты, статус-страницы, для DevOps-команд). Один файл index.html, без внешних CDN. Тексты на английском.'
+TASKS_ALL="landing report auth dashboard erp seo text crm design-kids design-wine design-saas"
+# Variants to run (default both): EVAL_VARIANTS="cfg" for config-only checks.
+VARIANTS="${EVAL_VARIANTS:-cfg base}"
 
 run_one() { # variant task
   local v="$1" t="$2" d="$E/$1-$2" start end
@@ -33,22 +39,26 @@ run_one() { # variant task
   git add -A >/dev/null 2>&1; git -c user.email=eval@local -c user.name=eval commit -qm init >/dev/null 2>&1
   [ "$v" = cfg ] && HOME="$E/home-cfg" "$REPO/install.sh" --project "$d" >/dev/null 2>&1
   start=$(date +%s)
+  # stream-json keeps every tool call (e.g. how many subagents were used); the readable answer goes to .log
   HOME="$E/home-$v" timeout "$TIMEOUT" claude -p "${P[$t]}" --model "$MODEL" \
     --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "Bash" "Agent" "Skill" "WebSearch" "WebFetch" \
-    < /dev/null > "$E/$v-$t.log" 2>&1
+    --output-format stream-json --verbose < /dev/null > "$E/$v-$t.jsonl" 2>&1
   local rc=$?; end=$(date +%s)
+  jq -r 'select(.type=="result") | .result // empty' "$E/$v-$t.jsonl" > "$E/$v-$t.log" 2>/dev/null
+  [ -s "$E/$v-$t.log" ] || tail -c 2000 "$E/$v-$t.jsonl" > "$E/$v-$t.log"
+  local agents; agents=$(jq -r 'select(.type=="assistant") | .message.content[]? | select(.type=="tool_use" and (.name=="Agent" or .name=="Task")) | .input.subagent_type // "general"' "$E/$v-$t.jsonl" 2>/dev/null | sort | uniq -c | awk '{printf "%s:%s ", $2, $1}')
   local lim=""
   # Only real CLI/API limit errors, not the words "rate limit" inside an answer.
   if [ "$rc" -ne 0 ] || [ "$(wc -c < "$E/$v-$t.log")" -lt 400 ]; then
     grep -qiE 'hit your [^ ]* ?limit|[0-9]-hour limit|usage limit|limit reached|limit will reset|rate_limit_error|overloaded_error|(^|[^0-9])429([^0-9]|$)|credit balance' "$E/$v-$t.log" && lim=" LIMIT_SIGNAL"
   fi
-  echo "done $v-$t exit=$rc seconds=$((end-start))$lim" >> "$E/status.txt"
+  echo "done $v-$t exit=$rc seconds=$((end-start)) agents=[${agents}]$lim" >> "$E/status.txt"
 }
 
 tasks="$*"; [ -z "$tasks" ] || [ "$tasks" = all ] && tasks="$TASKS_ALL"
 for t in $tasks; do
   [ -n "${P[$t]}" ] || { echo "unknown task: $t" >&2; continue; }
-  run_one cfg "$t" & run_one base "$t" & wait
+  for v in $VARIANTS; do run_one "$v" "$t" & done; wait
   if grep -E "^done (cfg|base)-$t " "$E/status.txt" | tail -2 | grep -q "LIMIT_SIGNAL"; then echo "LIMIT_STOP after $t" >> "$E/status.txt"; break; fi
 done
 echo "BATCH_DONE $tasks" >> "$E/status.txt"

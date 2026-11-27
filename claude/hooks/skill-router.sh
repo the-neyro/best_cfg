@@ -29,7 +29,7 @@ ctx=""
 add() { ctx="${ctx}${ctx:+ }$1"; }
 
 if has 'design|дизайн|редизайн|(^|[^a-z])u[ix]([^a-z]|$)|interface|интерфейс|oberfläche|gestalt|layout|вёрст|верст|лендинг|лендос|визитк|landing|startseite|portfolio|портфолио|(сделай|создай|сверстай|переделай|нарисуй|build|create|make|design|erstell|bau|gestalte|mach).{0,40}(сайт|website|webseite|homepage|seite|page|app|приложени|страниц|экран|screen)|dashboard|дашборд|дэшборд|frontend|фронтенд|component|компонент|komponente|tailwind|(^|[^a-z])css|макет|mockup|figma|экран|bildschirm|красив|schön|premium|премиум'; then
-  add "[design] Load and follow the \`design\` skill (plus \`dashboard-design\` / \`landing-page\` if relevant). Hard bans unless explicitly requested: no content boxed in bordered cards, radius 0-4px, no decorative shadows or borders, no icons in colored tiles, no decorative icons/emoji, no purple/blue gradients, gradient text or glassmorphism, no template layouts, no unstyled shadcn/library defaults. Show the design plan first; finish with slop-scan, visual-qa screenshots and ui-reviewer."
+  add "[design] Load and follow the \`design\` skill (plus \`dashboard-design\` / \`landing-page\` if relevant). Hard bans unless explicitly requested: no content boxed in bordered cards, radius 0-4px, no decorative shadows or borders, no icons in colored tiles, no decorative icons/emoji, no purple/blue gradients, gradient text or glassmorphism, no template layouts, no unstyled shadcn/library defaults. Show the design plan first; finish with slop-scan and visual-qa screenshots (ui-reviewer for client-facing pages or a new design direction)."
 fi
 if has 'pwa|mobile app|мобильн|react native|expo|i18n|übersetz|перевод интерфейс|mehrsprachig|мультиязыч|email.?template|e-?mail-?vorlage|шаблон письм|react|next\.?js|(^|[^a-z])vue|svelte|frontend|фронтенд|component|компонент|komponente|(^|[^a-z])form([^a-z]|$)|форм[аыу]|formular|hydration|re-?render|bundle|playwright'; then
   add "[frontend-engineering] Apply the \`frontend-engineering\` skill: no waterfalls (Promise.all), small client bundles (Server Components, dynamic imports), no derived state in effects, interface details (forms, focus-visible, URL state, typography, reduced motion)."
@@ -44,7 +44,7 @@ if has '(^|[^a-z])(seo|geo|aeo|llmo)([^a-z]|$)|сео|гео|ki-suche|индек
   add "[seo-geo] Load the \`seo-geo\` skill: audit first, technical foundation (SSR content, robots incl. AI retrieval bots, sitemap, schema, hreflang), answer-first specific content, entity consistency, measurement of AI citations."
 fi
 if has 'отчёт|отчет|репорт|report|bericht|auswertung|сводк|summary|zusammenfassung|memo|präsentation|презентац|analyse|аналитик'; then
-  add "[reports] Load the \`reports\` skill: bottom line first, every number computed with code and traced to a source, human conversational-professional style. Finish with \`editor\` and \`fact-checker\` (or the \`human-writing\` + \`fact-check\` skills)."
+  add "[reports] Load the \`reports\` skill: bottom line first, every number computed with code and traced to a source, human conversational-professional style. Verify every figure against the data; for client-facing reports finish with \`editor\` + \`fact-checker\`."
 fi
 if has 'текст|напиши|перепиши|очелов|статья|статью|статьи|пост(а|ы)?([^a-z]|$)|письм|(e-?mail|mail) an |email to |newsletter an|schreib|umschreib|artikel|beitrag|copy|humani[sz]e|рассылк|newsletter|beschreibung|описани|презентац|präsentation|presentation|slides|(^|[^a-z])deck'; then
   add "[writing] Load the \`human-writing\` skill: point first, concrete, varied rhythm, native typography, no AI tells or filler. Verify facts with \`fact-check\` for anything published or sent."
@@ -62,7 +62,7 @@ if has '(^|[^a-z])ai([^a-z]|$)|(^|[^а-яё])ии([^а-яё]|$)|нейросет
   add "[ai-features] Load the \`ai-features\` skill (and \`claude-api\` if available): simplest tier first, eval set before prompt tuning, structured outputs validated, prompt-injection defenses, cost caps."
 fi
 if has 'auth|login|логин|spam|спам|(^|[^a-z])sicher|безопасн|регистрац|registrier|anmeld|sign.?up|signup|kundenportal|личный кабинет|кабинет клиента|passwor|парол|session|сесси|token|токен|oauth|security|безопасн|sicherheit|uploads?|загрузк|payment|оплат|zahlung|stripe|webhook|admin|роль|rolle|permission|доступ|dsgvo|gdpr'; then
-  add "[security] Apply the \`secure-coding\` skill and run \`security-auditor\` before finishing."
+  add "[security] Apply the \`secure-coding\` skill; risk tier 2: \`code-reviewer\` + \`security-auditor\` before finishing."
 fi
 
 [ -z "$ctx" ] && exit 0
