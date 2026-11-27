@@ -23,8 +23,11 @@ Generic AI UI has a recognizable fingerprint: a grid of rounded cards, each with
 ### 1. Understand the subject
 In 3-5 lines: what the product is, who uses it, the single most important action, and 3 adjectives for the feel. Look at existing tokens, fonts and brand assets in the repo and reuse them. If the brief is vague, derive from the domain - a law firm, a logistics tool and a fashion label must not share a look.
 
-### 2. Choose a direction and write the design plan (show it before building)
-Pick ONE direction from `references/design-directions.md` (or define your own with the same precision) that fits the subject. Then write:
+### 2. Diverge, then choose a direction (show the plan before building)
+Models collapse onto the same 2-3 looks. Break that deliberately:
+1. Roll the dice: `node <this skill's folder>/scripts/design-dice.mjs "<domain keywords in English>" [--cyrillic]` (Claude Code: `~/.claude/skills/design/scripts/design-dice.mjs`). It proposes three concepts - composition x type pairing x palette strategy x signature device - avoiding what recent projects used.
+2. Write three one-line concepts that differ in composition, type and color (start from the dice; adapt freely). Name which one is the most *expected* for this kind of site and drop it unless the brief demands it.
+3. Choose one, tie it to the subject's world (`references/design-directions.md` for full recipes), then write:
 - **Direction**: one sentence, e.g. "Swiss grid: 12 columns, oversized grotesk headlines, black/white with one signal red, hairline rules."
 - **Palette**: 4-6 named colors in OKLCH (background, ink, muted ink, line, one accent, optional support).
 - **Type**: families, scale, weights, tracking. See `references/typography-color.md`.
@@ -45,6 +48,8 @@ Create tokens before components (CSS variables / Tailwind v4 `@theme`): colors, 
 - Images with fixed aspect ratios and no layout shift.
 
 ### 5. Check, deterministically and visually
+Log the chosen concept so the next project does not repeat it: `node <skill folder>/scripts/design-dice.mjs --log '{"project":"<name>","composition":"<id>","type":"<pairing>","palette":"<id>","signature":"<device>"}'`.
+
 Code quality and interaction details: follow the `frontend-engineering` skill (performance, forms, focus, URL state, typography details).
 
 1. Run the slop scanner on the changed UI code and fix every finding:
@@ -72,3 +77,4 @@ Code quality and interaction details: follow the `frontend-engineering` skill (p
 - `references/motion.md` - motion rules and snippets
 - `references/anti-patterns.md` - full slop checklist
 - `scripts/slop-scan.mjs` - static scanner for slop patterns in code
+- `scripts/design-dice.mjs` - proposes three different concepts (13 compositions, 28 type pairings with Cyrillic flags, 10 palette strategies, 12 signature devices), avoids recently used ones, logs choices
