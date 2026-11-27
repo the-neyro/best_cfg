@@ -40,7 +40,7 @@ run_one() { # variant task
   local lim=""
   # Only real CLI/API limit errors, not the words "rate limit" inside an answer.
   if [ "$rc" -ne 0 ] || [ "$(wc -c < "$E/$v-$t.log")" -lt 400 ]; then
-    grep -qiE 'usage limit|limit reached|limit will reset|rate_limit_error|overloaded_error|(^|[^0-9])429([^0-9]|$)|credit balance' "$E/$v-$t.log" && lim=" LIMIT_SIGNAL"
+    grep -qiE 'hit your [^ ]* ?limit|[0-9]-hour limit|usage limit|limit reached|limit will reset|rate_limit_error|overloaded_error|(^|[^0-9])429([^0-9]|$)|credit balance' "$E/$v-$t.log" && lim=" LIMIT_SIGNAL"
   fi
   echo "done $v-$t exit=$rc seconds=$((end-start))$lim" >> "$E/status.txt"
 }
