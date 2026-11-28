@@ -48,7 +48,10 @@ run_one() { # variant task
   [ "$v" = cfg ] && HOME="$E/home-cfg" "$REPO/install.sh" --project "$d" >/dev/null 2>&1
   start=$(date +%s)
   # stream-json keeps every tool call (e.g. how many subagents were used); the readable answer goes to .log
-  HOME="$E/home-$v" timeout "$TIMEOUT" claude -p "${P[$t]}" --model "$MODEL" \
+  # Die Cloud-Umgebung dieser Sitzung setzt CLAUDE_AUTO_BACKGROUND_TASKS=true: dann schiebt Claude Code
+  # lange Subagenten trotz run_in_background:false in den Hintergrund, und claude -p endet ohne deren Ergebnis.
+  # Auf einem normalen Rechner ist die Variable nicht gesetzt - daher hier entfernen.
+  HOME="$E/home-$v" timeout "$TIMEOUT" env -u CLAUDE_AUTO_BACKGROUND_TASKS -u CLAUDE_CODE_BG_TASKS_REPORT_RUNNING claude -p "${P[$t]}" --model "$MODEL" \
     --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "Bash" "Agent" "Skill" "WebSearch" "WebFetch" \
     --output-format stream-json --verbose < /dev/null > "$E/$v-$t.jsonl" 2>&1
   local rc=$?; end=$(date +%s)
