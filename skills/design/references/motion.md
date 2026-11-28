@@ -3,6 +3,8 @@
 Motion should explain change and add a sense of quality. It should never be the reason a page feels slow.
 
 ## Rules
+- Never: parallax on text, scroll-jacking, carousels or auto-rotating tabs, tilting cards, a fade-in on every section, random blinking. Anything that moves longer than 5 s gets a pause control.
+- Hover on photos: zoom at most 1.02-1.03; on linked rows: background shift, not a lift. Ambient loops: 2.5-4 s, subtle.
 - **Feedback** (hover, press, toggle): 100-200ms, ease-out. Press = subtle scale 0.98 or translateY(1px).
 - **Transitions** (panels, dialogs, route changes): 200-320ms. Enter with ease-out, exit faster (~70% of enter duration).
 - **Entrance choreography**: at most one orchestrated sequence per page (e.g. hero headline -> subcopy -> CTA -> visual, 40-80ms stagger). Do not fade-in every section on scroll.

@@ -5,14 +5,16 @@
 Type carries most of a page's personality. Choose with intent; never fall back to the first font that comes to mind.
 
 ### Choosing families
-- One family with a wide weight range is often enough. Two families: a characterful display face for headlines + a highly legible text face.
-- Match the subject:
-  - Precise / technical / fintech: Geist, Inter Display, Söhne-like grotesks (e.g. "Hanken Grotesk", "Schibsted Grotesk"), mono accents (Geist Mono, JetBrains Mono, IBM Plex Mono).
-  - Editorial / luxury / culture: a serif display (Fraunces, Instrument Serif, Newsreader, "Playfair Display" only if truly fitting) with a neutral sans body.
-  - Friendly / consumer: rounded or humanist sans (Nunito Sans, "DM Sans", Figtree, Manrope).
-  - Bold / brutalist / creative: condensed or wide grotesks (Archivo, "Bricolage Grotesque", Unbounded), big sizes, tight tracking.
-- Avoid choosing Inter/Roboto/Arial/system-ui by reflex for display type; they are fine for dense UI text when the brand voice lives elsewhere.
-- Load fonts self-hosted / via `next/font`, variable weights, `font-display: swap`, subset to needed scripts (add `cyrillic` when content is Russian).
+- One family with a wide weight range is often enough. Two families: a characterful display face + a highly legible text face.
+- **Banned as brand faces (the AI default look)**: Inter, Roboto, Open Sans, Lato, Poppins, Montserrat, Raleway, Nunito, Space Grotesk, DM Sans/DM Serif, Plus Jakarta Sans, Outfit, Sora, Manrope, Urbanist, Lexend, Geist, Instrument Serif/Sans, Fraunces, Playfair Display, Bricolage Grotesque, Syne, Satoshi, General Sans, Clash Display, Cabinet Grotesk, Space Mono, Bebas Neue, Abril Fatface, bare system stacks.
+- **Use with a reason only** (common, not wrong): Oswald, Rubik, Jost, Lora, Merriweather, Source Sans, Work Sans, Unbounded.
+- Free faces with character (Google Fonts, self-host; check the `cyrillic` subset when Russian is needed - marked ✓ where it exists):
+  - Serif / editorial: Source Serif 4 ✓, EB Garamond ✓, Cormorant Garamond ✓, Spectral ✓, Literata ✓, PT Serif ✓, Alegreya ✓, Piazzolla ✓, Vollkorn ✓, Newsreader, Libre Caslon, Bodoni Moda, Brygada 1918, Young Serif, Gloock, Petrona.
+  - Sans / text: IBM Plex Sans ✓, Golos Text ✓, Onest ✓, Commissioner ✓, PT Sans ✓, Fira Sans ✓, Alegreya Sans ✓, Hanken Grotesk, Schibsted Grotesk, Familjen Grotesk, Public Sans, Libre Franklin, Albert Sans, Karla, Chivo, Epilogue, Red Hat Display/Text, Atkinson Hyperlegible.
+  - Display / condensed: Fira Sans Extra Condensed ✓, Russo One ✓, Rubik Mono One ✓, Big Shoulders Display, League Gothic, Barlow Condensed, Anybody (variable width), Climate Crisis, Bowlby One.
+  - Mono: JetBrains Mono ✓, IBM Plex Mono ✓, Fira Code ✓, Martian Mono, Azeret Mono, Red Hat Mono.
+- For premium brands, a licensed face from an independent foundry (e.g. Klim, Grilli Type, Dinamo, Commercial Type, TypeTogether, Production Type) is the single biggest step away from the generic look - suggest it when the budget allows.
+- Load fonts self-hosted (`next/font/local`, `@font-face`), variable weights, `font-display: swap`, subset to the scripts you need.
 
 ### Scale and rhythm
 - Use a modular scale (ratio 1.2-1.333) or a hand-tuned set: 12, 14, 16, 18, 20, 24, 30, 36, 48, 60, 72, 96.

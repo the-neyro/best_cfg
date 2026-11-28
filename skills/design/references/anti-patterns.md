@@ -12,6 +12,7 @@ If the design matches an item here, change it unless the brief explicitly asks f
 - [ ] Purple/indigo/violet/pink gradients; gradient text; glassmorphism (`backdrop-blur` panels); blurred gradient blobs; glow effects.
 
 ## Layout and content clichés
+- [ ] Our own house default: giant headline on the left + boxed interactive widget/calculator on the right. Fine once, a template when it appears on every page.
 - [ ] Centered hero: badge pill ("New ✨ ...") + gradient headline + subtext + two buttons + floating screenshot.
 - [ ] 3- or 6-column grid of identical feature blocks with vague benefits ("Blazing fast", "Secure", "Scalable").
 - [ ] Avatar stack + "Trusted by 10,000+ users"; fake company logos; unsourced stats ("10x faster").
@@ -31,6 +32,8 @@ If the design matches an item here, change it unless the brief explicitly asks f
 - [ ] Muted text failing contrast; text over images without enough contrast.
 - [ ] Layout shift on load; horizontal scroll on mobile.
 - [ ] Fade-in-on-scroll on every block; bouncing elements; animations > 400ms on interactions.
+- [ ] Parallax text, scroll-jacking, carousels / auto-rotating tabs, 3D-tilt cards.
+- [ ] Stock photos presented as the client's own place or team; invented reviews or customer counts.
 
 ## The fix pattern
 For each hit ask: "What would this look like if it were designed specifically for *this* product and *these* users?" Replace the default with a decision from the chosen direction and the product's own world: typography, grid, color fields, real imagery, real data.

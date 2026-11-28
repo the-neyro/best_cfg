@@ -31,6 +31,8 @@ const rules = [
   ["emoji", "MED", "emoji in markup (use real icons or typography)", /[\u{1F300}-\u{1FAFF}\u{2728}\u{2B50}\u{1F680}\u{26A1}]/u],
   ["placeholder", "HIGH", "placeholder content", /lorem ipsum|John Doe|Jane Doe|Acme(?: Inc| Corp)?\b|Feature (?:One|1)\b/i],
   ["bounce", "LOW", "bouncing / pulsing decoration", /\banimate-(?:bounce|ping)\b/],
+  ["slop-font", "HIGH", "AI-default typeface (see design skill ban list)",
+    /(?=.*(font-family|--font|--serif|--sans|--display|--heading|--text|family=|next\/font|fontFamily|@fontsource|font:))(?=.*(^|[^a-z])(Inter|Roboto|Open[ +_-]?Sans|Lato|Poppins|Montserrat|Raleway|Nunito|Space[ +_-]?Grotesk|DM[ +_-]?Sans|DM[ +_-]?Serif[ +_-]?Display|Plus[ +_-]?Jakarta[ +_-]?Sans|Outfit|Sora|Manrope|Urbanist|Lexend|Geist|Instrument[ +_-]?Serif|Instrument[ +_-]?Sans|Fraunces|Playfair[ +_-]?Display|Bricolage[ +_-]?Grotesque|Syne|Satoshi|General[ +_-]?Sans|Clash[ +_-]?Display|Cabinet[ +_-]?Grotesk|Space[ +_-]?Mono|Bebas[ +_-]?Neue|Abril[ +_-]?Fatface)([^a-z]|$))/i],
   ["big-css-radius", "MED", "CSS border-radius >= 12px", /border-radius:\s*(?:1[2-9]|[2-9]\d)px|border-radius:\s*(?:0\.[89]|[1-9])(?:\.\d+)?rem/],
 ];
 

@@ -50,6 +50,8 @@ Confirm current legal requirements against official sources (BMF, DATEV docs) - 
 - **Command palette** (Cmd/Ctrl+K) for navigation and actions; global search across customers, orders, invoices.
 - Keyboard shortcuts for frequent actions; forms that never lose input (autosave drafts), smart defaults, validation inline.
 - Record pages: header with key facts and status, primary actions, related records in tabs, activity timeline (changes, emails, notes, tasks).
+- Status workflows (orders, tickets, repairs, deals) get a **board view** (columns per status, move items between them, counts per column) next to the table - it is how people actually run their day.
+- **First run shows the app working**: for prototypes and demos the default start command loads realistic seed data (clearly marked as demo data, resettable); the empty states are still designed for real first use.
 - Imports with preview, column mapping, validation report and rollback; templates for documents (PDF) with the customer's branding.
 - Speed budget: list views < 300 ms server time, interactions feel instant (optimistic updates where safe).
 - Follow `design` + `dashboard-design`: dense but calm, no card walls, tabular numbers, designed empty/loading/error states.

@@ -36,11 +36,12 @@ skills/                 Agent Skills (offener Standard) – laufen in Claude Cod
   payments/             Stripe, Abos, Webhooks idempotent, MwSt./Rechnungen DE/EU, Fehlerpfade
   devops/               Deploy, CI/CD, Docker, Backups mit Restore-Test, Monitoring, EU-Hosting
   ai-features/          LLM-Funktionen in Apps: Evals, Structured Outputs, Prompt-Injection-Schutz, Kosten
+  learn/                /learn: Korrektur -> dauerhafte Projektregel (AGENTS.md, Rule oder Hook-Vorschlag)
   tdd/ spec/ ship/ web-quality/
 claude/                 Nur Claude Code
   CLAUDE.md             importiert AGENTS.md + Orchestrator-Regeln
   settings.json         Opus 5.5 + effort high, Permissions, Hooks, Statuszeile
-  hooks/                skill-router, guard-bash, secret-scan, protect-files, format-on-edit, statusline
+  hooks/                skill-router, guard-bash, secret-scan, protect-files, format-on-edit, notify, statusline
   agents/               architect, implementer, test-writer, debugger, code-reviewer, security-auditor,
                         ui-reviewer, researcher, editor, fact-checker
 project-template/       AGENTS.md-Vorlage, CLAUDE.md, Stop-Hook (Typecheck+Lint), Frontend-Regeln, .mcp.json
@@ -57,6 +58,7 @@ Die Hauptsession ist der **Orchestrator**: kleine Aufgaben selbst, große als Pl
 | guard-bash | Blockt `rm -rf /`, `curl … \| sh`, Force-Push auf main, `.env` lesen, `chmod 777`; fragt bei `reset --hard`, `--no-verify`, `DROP TABLE`, `publish`, `terraform apply` |
 | secret-scan | Blockt Commits mit API-Keys, privaten Schlüsseln, DB-Passwörtern, `.env`-Dateien (+ gitleaks, falls installiert) |
 | protect-files | Keine Edits an `.env`, Lockfiles, Schlüsseln, `.git/` |
+| notify | Desktop-Benachrichtigung (macOS/Linux/WSL), wenn Claude auf dich wartet |
 | format-on-edit | Formatiert mit dem Formatter des Projekts (Biome/Prettier/Ruff/gofmt/rustfmt) |
 | verify-on-stop (Projekt) | Typecheck + Lint, bevor Claude „fertig“ sagt |
 
@@ -73,4 +75,4 @@ Die Hauptsession ist der **Orchestrator**: kleine Aufgaben selbst, große als Pl
 - Nach Änderungen erneut `./install.sh` (idempotent, mit Backup).
 
 ## Credits
-Eigene Texte, inspiriert von und abgeglichen mit: Anthropics offiziellen Claude-Code-Docs und dem `frontend-design`-Skill, [obra/superpowers](https://github.com/obra/superpowers) (MIT – Debugging, Verification, Planung, Review-Umgang), [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) (MIT – React-Performance, Web Interface Guidelines), [trailofbits/skills](https://github.com/trailofbits/skills) (CC-BY-SA-4.0 – Sharp Edges, Insecure Defaults, Supply Chain; Ideen paraphrasiert).
+Eigene Texte, inspiriert von und abgeglichen mit: Anthropics offiziellen Claude-Code-Docs und dem `frontend-design`-Skill, [obra/superpowers](https://github.com/obra/superpowers) (MIT – Debugging, Verification, Planung, Review-Umgang), [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) (MIT – React-Performance, Web Interface Guidelines), [trailofbits/skills](https://github.com/trailofbits/skills) (CC-BY-SA-4.0 – Sharp Edges, Insecure Defaults, Supply Chain; Ideen paraphrasiert), [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (MIT – Geschäftstyp-Klassifizierung, Copy-Dichte, Motion-Verbote; bestätigte den Würfel-Ansatz).
